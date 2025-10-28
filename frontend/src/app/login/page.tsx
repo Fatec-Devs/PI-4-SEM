@@ -1,30 +1,46 @@
 "use client";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simulação de login - em produção, isso seria uma chamada à API
+    if (email && password) {
+      router.push('/admin/dashboard');
+    }
+  };
+
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-gray-50">
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-md">
           <header className="flex flex-col items-center justify-center mb-8">
-            <img
-              alt="John Deere Logo"
-              className="h-16 mb-4"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA69LApczTLyMCVIM2t9WH6DJYgmb9y3ZbygrmbZ9nHmo1oj3LWYqhutux4zcxQEVhcqhH8NrvX_KJjj8VE6DItV4_MAUWGYObw4Mnhl2W2SgcumNI-ii2aGg524nNpzseTuQ1gdxdYkK-mcKn6aGfzhFNd8vZxsNCGtJzVcxBezHYAnGNaPcsGjSG8xP-6FU86p010kcndwaZfzPQ5qeuxrmMkbX5RuUVYd36SDgPHXnOoxA02Cy8FBP8A7vBolwwWVOpeqjoX1uo" // Add the logo to your public folder
-            />
-            <h1 className="text-3xl font-bold text-johndeere-green">
+            <div className="w-16 h-16 bg-johndeere-green rounded-md flex items-center justify-center mb-4">
+              <img
+                alt="John Deere Logo"
+                className="h-10"
+                src="/john-deere-logo.png"
+              />
+            </div>
+            <h1 className="text-2xl font-bold text-johndeere-green">
               User Management System
             </h1>
           </header>
-          <main className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+          <main className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800">
                 Acessar sua conta
               </h2>
-              <p className="text-gray-500">
+              <p className="text-sm text-gray-500">
                 Bem-vindo de volta!
               </p>
             </div>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   className="block text-sm font-medium text-gray-700"
@@ -33,15 +49,27 @@ export default function LoginPage() {
                   E-mail ou nome de usuário
                 </label>
                 <div className="relative mt-1">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    person
-                  </span>
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </div>
                   <input
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
                     id="email"
                     name="email"
                     placeholder="seu-email@exemplo.com"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -54,43 +82,52 @@ export default function LoginPage() {
                     Senha
                   </label>
                   <a
-                    className="text-sm font-medium text-johndeere-green hover:text-johndeere-green/80"
+                    className="text-xs text-johndeere-green hover:text-johndeere-green/80"
                     href="#"
                   >
                     Esqueceu a senha?
                   </a>
                 </div>
                 <div className="relative mt-1">
-                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    lock
-                  </span>
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
                   <input
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
                     id="password"
                     name="password"
                     placeholder="••••••••"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
               </div>
               <button
-                className="w-full bg-johndeere-green text-white font-semibold py-2 px-4 rounded-lg hover:bg-johndeere-green/90 transition-colors duration-200"
+                className="w-full bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg
+                hover:bg-johndeere-green/90 focus:outline-none focus:ring-2 focus:ring-offset-2
+                focus:ring-johndeere-green/50 dark:bg-johndeere-yellow dark:text-zinc-900
+                dark:hover:bg-johndeere-yellow/90 dark:focus:ring-johndeere-yellow/50
+                dark:focus:ring-offset-background-dark transition-colors duration-300"
                 type="submit"
               >
                 Entrar
               </button>
+              <div className="flex items-center justify-center">
+                <p className="text-xs text-gray-500">
+                  Não tem uma conta? <a href="#" className="text-johndeere-green hover:underline">Cadastre-se</a>
+                </p>
+              </div>
             </form>
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-500">
-                Não tem uma conta?{" "}
-                <a
-                  className="font-medium text-johndeere-green hover:text-johndeere-green/80"
-                  href="#"
-                >
-                  Cadastre-se
-                </a>
-              </p>
-            </div>
           </main>
         </div>
       </div>

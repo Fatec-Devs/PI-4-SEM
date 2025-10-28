@@ -21,6 +21,12 @@ const config: Config = {
       fontFamily: {
         "display": ["Public Sans"]
       },
+      borderRadius: {
+        "DEFAULT": "0.375rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
     },
   },
   plugins: [

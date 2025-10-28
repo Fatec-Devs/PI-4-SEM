@@ -18,5 +18,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: 'Public Sans', sans-serif;
+}
+
+.form-input-error {
+  border-color: #D32F2F;
+  box-shadow: 0 0 0 1px #D32F2F;
 }
