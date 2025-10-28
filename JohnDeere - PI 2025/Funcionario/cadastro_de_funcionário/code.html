@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cadastro de Funcionário - John Deere</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "johndeere-green": "#367C2B",
+                        "johndeere-yellow": "#FFDE00",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#1F2937",
+                        "text-light": "#F9FAFB",
+                        "text-dark": "#111827",
+                        "border-light": "#D1D5DB",
+                        "border-dark": "#4B5563"
+                    },
+                    fontFamily: {
+                        "sans": ["Roboto", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-input-jd, .form-select-jd {
+            background-color: #ffffff;
+            border-color: #D1D5DB;
+            color: #111827;
+        }
+        .dark .form-input-jd, .dark .form-select-jd {
+            background-color: #374151;
+            border-color: #4B5563;
+            color: #F9FAFB;
+        }
+        .form-input-jd:focus, .form-select-jd:focus {
+            --tw-ring-color: #FFDE00;
+            border-color: #367C2B;
+        }
+        .required-label::after {
+            content: '*';
+            color: #EF4444;
+            margin-left: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-text-dark dark:text-text-light">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-3 bg-white dark:bg-gray-800 shadow-sm">
+<div class="flex items-center gap-4 text-text-dark dark:text-text-light">
+<div class="h-10 w-10">
+<img alt="John Deere Logo" class="h-13 w-auto rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKzWNAVF9nivRk_dxT7WNrE0ZJHkMybw2BNLLkbQ-sdzEuroCIxbWUjfUo3GNJPGTnXUZrwvCXyYGjrHYlqmscBV2h2Esclli5AlrT_mpEnvITxJTt8NzJgSX3zJdtUr17mJ2psSGftD1-3Id8SRfz1nHzueyQQuEOryUsCBBQ_-S7Md1IqUBXFBmF7nL-qEvJSTAvyITWNqCcYFiM2GlRGwJ3hrdB8qqCcOBoJH9irOjega72TahWJjQ0EgUaASKBdG5zh0FVVZY"/>
+</div>
+<h2 class="text-xl font-bold text-johndeere-green">John Deere</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-6">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-text-dark dark:text-text-light hover:text-johndeere-green dark:hover:text-johndeere-yellow transition-colors" href="#">Início</a>
+<a class="text-sm font-medium text-text-dark dark:text-text-light hover:text-johndeere-green dark:hover:text-johndeere-yellow transition-colors" href="#">Usuários</a>
+<a class="text-sm font-medium text-text-dark dark:text-text-light hover:text-johndeere-green dark:hover:text-johndeere-yellow transition-colors" href="#">Funções</a>
+<a class="text-sm font-medium text-text-dark dark:text-text-light hover:text-johndeere-green dark:hover:text-johndeere-yellow transition-colors" href="#">Permissões</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-full size-10 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOQpEBPkNsCkVvX1cM8M3ZuwY0xBSXEGCjp-ktV2-wph7X1FdO3y4heCNANuyPJ8N8I82-gjVe2a5jvU3MfdcU1zkfZjYqKTPOsxEKUjNx0RnMIRsiVQsFgHGhKnJrLMmnMEZ046kueC52OlKFRbjHM3MMUUqC5WNInQiAp-cBFy69sDqjOceZf_bHriLvBjWi96i9aPoaOCrS5LFDtlEyRk4ALNHNDTUX29BStx4CTF_u0eYLMSR3uqliC8IdJ0J_8ct0zoIUxEQ");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-10 px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-3xl space-y-8">
+<div>
+<h1 class="text-3xl font-bold text-text-dark dark:text-text-light">Cadastro de Funcionário</h1>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Preencha os campos abaixo para criar um novo perfil de funcionário. Campos com <span class="text-red-500">*</span> são obrigatórios.</p>
+</div>
+<form class="space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+<fieldset class="space-y-6 border-b border-border-light dark:border-border-dark pb-8">
+<legend class="text-lg font-semibold text-johndeere-green">Informações Pessoais</legend>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="full-name">Nome Completo</label>
+<input class="form-input-jd w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50" id="full-name" placeholder="Ex: João da Silva" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="email">Email</label>
+<input class="form-input-jd w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50" id="email" placeholder="Ex: joao.silva@deere.com" required="" type="email"/>
+<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Use o e-mail corporativo.</p>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2" for="phone">Telefone</label>
+<input class="form-input-jd w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50" id="phone" placeholder="Ex: (11) 99999-9999" type="tel"/>
+</div>
+</fieldset>
+<fieldset class="space-y-6 border-b border-border-light dark:border-border-dark pb-8">
+<legend class="text-lg font-semibold text-johndeere-green">Informações Profissionais</legend>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="department">Departamento</label>
+<select class="form-select-jd w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50" id="department" required="">
+<option disabled="" selected="" value="">Selecione o Departamento</option>
+<option>Engenharia</option>
+<option>Marketing</option>
+<option>Vendas</option>
+<option>Recursos Humanos</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="role">Função</label>
+<select class="form-select-jd w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50" id="role" required="">
+<option disabled="" selected="" value="">Selecione a Função</option>
+<option>Gerente</option>
+<option>Desenvolvedor</option>
+<option>Designer</option>
+<option>Analista</option>
+</select>
+</div>
+</div>
+</fieldset>
+<fieldset class="space-y-6">
+<legend class="text-lg font-semibold text-johndeere-green">Credenciais de Acesso</legend>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="username">Nome de Usuário</label>
+<div class="relative rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-gray-400">person</span>
+</div>
+<input class="form-input-jd w-full rounded-md pl-10 focus:ring focus:ring-opacity-50" id="username" placeholder="Ex: joao.silva" required="" type="text"/>
+</div>
+<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Será usado para login no sistema.</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 required-label" for="password">Senha</label>
+<div class="relative rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-gray-400">lock</span>
+</div>
+<input class="form-input-jd w-full rounded-md pl-10 focus:ring focus:ring-opacity-50" id="password" placeholder="Crie uma senha forte" required="" type="password"/>
+</div>
+<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Mínimo de 8 caracteres, com letras, números e símbolos.</p>
+</div>
+</fieldset>
+<div class="flex justify-end pt-4 gap-4">
+<button class="w-full sm:w-auto flex justify-center py-2 px-6 rounded-md bg-gray-200 text-text-dark dark:bg-gray-600 dark:text-text-light font-bold text-sm hover:bg-gray-300 dark:hover:bg-gray-500 transition-all" type="button">
+                        Cancelar
+                    </button>
+<button class="w-full sm:w-auto flex items-center justify-center py-2 px-6 rounded-md bg-johndeere-green text-white font-bold text-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-yellow transition-all shadow-sm" type="submit">
+<span class="material-symbols-outlined mr-2">person_add</span>
+                        Cadastrar Funcionário
+                    </button>
+</div>
+</form>
+</div>
+</main>
+</div>
+
+</body></html>

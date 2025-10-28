@@ -11,58 +11,47 @@ export default function Login() {
     e.preventDefault();
     // Simulação de login - em produção, isso seria uma chamada à API
     if (email && password) {
-      router.push('/admin/dashboard');
+      router.push('/admin/home');
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-md">
           <header className="flex flex-col items-center justify-center mb-8">
-            <div className="w-16 h-16 bg-johndeere-green rounded-md flex items-center justify-center mb-4">
-              <img
-                alt="John Deere Logo"
-                className="h-10"
-                src="/john-deere-logo.png"
-              />
-            </div>
-            <h1 className="text-2xl font-bold text-johndeere-green">
+            <img
+              alt="John Deere Logo"
+              className="h-20 mb-4 rounded-lg"
+              src="/john-deere-logo.png"
+            />
+            <h1 className="text-3xl font-bold font-display text-johndeere-green dark:text-johndeere-yellow">
               User Management System
             </h1>
           </header>
-          <main className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+          <main className="bg-white dark:bg-zinc-900/50 p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
             <div className="text-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-2xl font-bold font-display text-slate-800 dark:text-slate-100">
                 Acessar sua conta
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-slate-500 dark:text-slate-400">
                 Bem-vindo de volta!
               </p>
             </div>
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
               <div>
                 <label
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
                   htmlFor="email"
                 >
                   E-mail ou nome de usuário
                 </label>
-                <div className="relative mt-1">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg
-                      className="h-5 w-5 text-gray-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                  </div>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
+                    person
+                  </span>
                   <input
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    className="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 pl-10 peer"
                     id="email"
                     name="email"
                     placeholder="seu-email@exemplo.com"
@@ -70,38 +59,34 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    aria-describedby="email-error"
                   />
                 </div>
+                <p className="mt-2 text-sm text-error hidden peer-invalid:block" id="email-error">
+                  Por favor, insira um e-mail válido.
+                </p>
               </div>
               <div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1">
                   <label
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                     htmlFor="password"
                   >
                     Senha
                   </label>
                   <a
-                    className="text-xs text-johndeere-green hover:text-johndeere-green/80"
+                    className="text-sm font-medium text-johndeere-green hover:text-johndeere-green/80 dark:text-johndeere-yellow dark:hover:text-johndeere-yellow/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-green/50 dark:focus:ring-offset-background-dark rounded"
                     href="#"
                   >
                     Esqueceu a senha?
                   </a>
                 </div>
-                <div className="relative mt-1">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg
-                      className="h-5 w-5 text-gray-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
+                    lock
+                  </span>
                   <input
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    className="form-input w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 pl-10 peer"
                     id="password"
                     name="password"
                     placeholder="••••••••"
@@ -109,22 +94,26 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    aria-describedby="password-error"
                   />
                 </div>
+                <p className="mt-2 text-sm text-error hidden peer-invalid:block" id="password-error">
+                  A senha é obrigatória.
+                </p>
               </div>
               <button
-                className="w-full bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg
-                hover:bg-johndeere-green/90 focus:outline-none focus:ring-2 focus:ring-offset-2
-                focus:ring-johndeere-green/50 dark:bg-johndeere-yellow dark:text-zinc-900
+                className="w-full bg-green-600 bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg
+                hover:bg-green-700 hover:bg-johndeere-green/90 focus:outline-none focus:ring-2 focus:ring-offset-2
+                focus:ring-green-600 focus:ring-johndeere-green/50 dark:bg-johndeere-yellow dark:text-zinc-900
                 dark:hover:bg-johndeere-yellow/90 dark:focus:ring-johndeere-yellow/50
                 dark:focus:ring-offset-background-dark transition-colors duration-300"
                 type="submit"
               >
                 Entrar
               </button>
-              <div className="flex items-center justify-center">
-                <p className="text-xs text-gray-500">
-                  Não tem uma conta? <a href="#" className="text-johndeere-green hover:underline">Cadastre-se</a>
+              <div className="mt-6 text-center">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Não tem uma conta? <a href="#" className="font-medium text-johndeere-green hover:text-johndeere-green/80 dark:text-johndeere-yellow dark:hover:text-johndeere-yellow/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-green/50 dark:focus:ring-offset-background-dark rounded">Cadastre-se</a>
                 </p>
               </div>
             </form>

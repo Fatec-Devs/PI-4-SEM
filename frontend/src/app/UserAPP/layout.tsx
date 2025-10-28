@@ -37,7 +37,7 @@ export default function UserAppLayout({
           <div className="flex items-center justify-center mb-8">
             <div className="bg-johndeere-green p-2 rounded-md">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA69LApczTLyMCVIM2t9WH6DJYgmb9y3ZbygrmbZ9nHmo1oj3LWYqhutux4zcxQEVhcqhH8NrvX_KJjj8VE6DItV4_MAUWGYObw4Mnhl2W2SgcumNI-ii2aGg524nNpzseTuQ1gdxdYkK-mcKn6aGfzhFNd8vZxsNCGtJzVcxBezHYAnGNaPcsGjSG8xP-6FU86p010kcndwaZfzPQ5qeuxrmMkbX5RuUVYd36SD"
+                src="/john-deere-logo.png"
                 alt="John Deere Logo"
                 className="h-8 w-8"
               />

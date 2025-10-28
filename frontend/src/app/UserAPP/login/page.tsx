@@ -114,10 +114,8 @@ export default function UserAppLogin() {
               </div>
               <button
                 className="w-full bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg
-                hover:bg-johndeere-green/90 focus:outline-none focus:ring-2 focus:ring-offset-2
-                focus:ring-johndeere-green/50 dark:bg-johndeere-yellow dark:text-zinc-900
-                dark:hover:bg-johndeere-yellow/90 dark:focus:ring-johndeere-yellow/50
-                dark:focus:ring-offset-background-dark transition-colors duration-300"
+                hover:bg-johndeere-green/90 transition-colors duration-300 focus:outline-none focus:ring-2
+                focus:ring-offset-2 focus:ring-johndeere-green/50 dark:focus:ring-offset-surface-dark"
                 type="submit"
               >
                 Entrar

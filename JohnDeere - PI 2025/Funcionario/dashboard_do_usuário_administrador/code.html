@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+      --brand-green: #367c2b;
+      --brand-yellow: #ffde00;
+      --neutral-light: #f3f4f6;
+      --neutral-dark: #1f2937;
+      --neutral-medium: #6b7280;
+    }
+  </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "var(--brand-green)",
+                        "secondary": "var(--brand-yellow)",
+                        "background-light": "var(--neutral-light)",
+                        "background-dark": "var(--neutral-dark)",
+                        "text-light": "#111827",
+                        "text-dark": "#f9fafb",
+                        "text-muted-light": "var(--neutral-medium)",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="flex min-h-screen">
+<aside class="flex w-64 flex-col border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+<div class="flex h-16 items-center px-6 shrink-0">
+<img alt="John Deere Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKzWNAVF9nivRk_dxT7WNrE0ZJHkMybw2BNLLkbQ-sdzEuroCIxbWUjfUo3GNJPGTnXUZrwvCXyYGjrHYlqmscBV2h2Esclli5AlrT_mpEnvITxJTt8NzJgSX3zJdtUr17mJ2psSGftD1-3Id8SRfz1nHzueyQQuEOryUsCBBQ_-S7Md1IqUBXFBmF7nL-qEvJSTAvyITWNqCcYFiM2GlRGwJ3hrdB8qqCcOBoJH9irOjega72TahWJjQ0EgUaASKBdG5zh0FVVZY"/>
+<div class="ml-3">
+<h1 class="text-lg font-bold text-primary dark:text-secondary">Admin</h1>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">John Deere</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2 px-4 py-4">
+<a class="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 rounded-md bg-primary/10 dark:bg-secondary/20 px-3 py-2 text-primary dark:text-secondary font-semibold" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Usuários</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-medium">Grupos</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Relatórios</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Configurações</span>
+</a>
+</nav>
+</aside>
+<main class="flex-1 p-8">
+<div class="mb-8 flex items-center justify-between">
+<h1 class="text-3xl font-bold text-text-light dark:text-text-dark">Gerenciamento de Usuários</h1>
+<button class="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">
+<span class="material-symbols-outlined">add</span>
+                    Adicionar Usuário
+                </button>
+</div>
+<div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">search</span>
+<input class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 pl-10 pr-4 text-text-light dark:text-text-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Buscar por nome ou email..." type="text"/>
+</div>
+<div>
+<select class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-3 text-text-light dark:text-text-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+<option>Filtrar por Grupo</option>
+<option>Administradores</option>
+<option>Usuários</option>
+</select>
+</div>
+<div>
+<select class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-3 text-text-light dark:text-text-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+<option>Filtrar por Status</option>
+<option>Ativo</option>
+<option>Inativo</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+<table class="w-full text-left text-sm">
+<thead class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+<tr>
+<th class="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Nome</th>
+<th class="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Email</th>
+<th class="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Grupo</th>
+<th class="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Status</th>
+<th class="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Carlos Silva</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">carlos.silva@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/50 px-3 py-1 text-xs font-semibold text-blue-800 dark:text-blue-300">Administradores</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Ana Souza</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">ana.souza@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Pedro Almeida</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">pedro.almeida@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-semibold text-red-800 dark:text-red-300">Inativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Mariana Costa</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">mariana.costa@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/50 px-3 py-1 text-xs font-semibold text-blue-800 dark:text-blue-300">Administradores</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Ricardo Pereira</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">ricardo.pereira@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+<td class="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Fernanda Lima</td>
+<td class="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">fernanda.lima@example.com</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-semibold text-red-800 dark:text-red-300">Inativo</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
+<span class="mx-2 text-gray-300 dark:text-gray-600">|</span>
+<a class="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark">
+                    Mostrando 1 a 6 de 58 usuários
+                </span>
+<div class="flex items-center space-x-1">
+<button class="flex h-8 w-8 items-center justify-center rounded-md text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-base">chevron_left</span>
+</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-bold text-white">1</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700">2</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700">3</button>
+<span class="text-sm text-text-muted-light dark:text-text-muted-dark">...</span>
+<button class="flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700">10</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-md text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
