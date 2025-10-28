@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function UserHomePage() {
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-background-light dark:bg-background-dark border-r border-subtle-light dark:border-subtle-dark flex flex-col p-4">
+      <aside className="w-64 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-subtle-dark flex flex-col p-4">
         <div className="flex items-center gap-2 mb-10">
           <img 
             alt="John Deere Logo" 
@@ -100,10 +100,10 @@ export default function UserHomePage() {
           <h2 className="text-2xl font-bold text-foreground-light dark:text-foreground-dark mb-4">Status do Equipamento</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-subtle-dark rounded-xl shadow-md overflow-hidden flex flex-col">
-              <div className="h-48 bg-no-repeat bg-center bg-contain" style={{backgroundImage: `url('/window.svg')`}}></div>
+              <div className="h-48 bg-no-repeat bg-center bg-contain" style={{backgroundImage: `url('/8400r_campo_large_7b13780a09551c33c057712d2c40f25f24c91db8.webp')`}}></div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-foreground-light dark:text-foreground-dark">Trator Modelo X500</h3>
+                  <h3 className="text-xl font-bold text-foreground-light dark:text-foreground-dark">John Deere 8400R</h3>
                   <span className="inline-flex items-center gap-1.5 bg-status-green/10 text-status-green text-xs font-semibold px-2.5 py-1 rounded-full">
                     <span className="h-1.5 w-1.5 bg-status-green rounded-full"></span>
                     Em Operação
@@ -111,7 +111,7 @@ export default function UserHomePage() {
                 </div>
                 <p className="text-foreground-light/70 dark:text-foreground-dark/70 text-sm mb-4">
                   <span className="material-symbols-outlined text-sm align-middle mr-1">location_on</span> 
-                  Fazenda do Sol, Campo Grande
+                  Fazenda do Sul, Campo Grande
                 </p>
                 <div className="mt-auto grid grid-cols-3 gap-4 text-center">
                   <div>
@@ -130,10 +130,10 @@ export default function UserHomePage() {
               </div>
             </div>
             <div className="bg-white dark:bg-subtle-dark rounded-xl shadow-md overflow-hidden flex flex-col">
-              <div className="h-48 bg-no-repeat bg-center bg-contain" style={{backgroundImage: `url('/file.svg')`}}></div>
+              <div className="h-48 bg-no-repeat bg-center bg-contain" style={{backgroundImage: `url('/S790.PNG')`}}></div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-foreground-light dark:text-foreground-dark">Colheitadeira S770</h3>
+                  <h3 className="text-xl font-bold text-foreground-light dark:text-foreground-dark">John Deere S790</h3>
                   <span className="inline-flex items-center gap-1.5 bg-status-yellow/10 text-status-yellow text-xs font-semibold px-2.5 py-1 rounded-full">
                     <span className="h-1.5 w-1.5 bg-status-yellow rounded-full"></span>
                     Em Manutenção
@@ -177,7 +177,7 @@ export default function UserHomePage() {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground-light dark:text-foreground-dark">Nível de óleo baixo</h4>
-                  <p className="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Trator Modelo X500 precisa de manutenção urgente.</p>
+                  <p className="text-sm text-foreground-light/70 dark:text-foreground-dark/70">John Deere 8400R precisa de manutenção urgente.</p>
                   <div className="flex items-center gap-4 mt-2">
                     <span className="text-xs text-foreground-light/50 dark:text-foreground-dark/50">Hoje, 09:45</span>
                     <span className="inline-flex items-center gap-1 bg-status-red/10 text-status-red text-xs px-2 py-0.5 rounded-full">

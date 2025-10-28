@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 
+type FormDataState = {
+  fullName: string;
+  email: string;
+  phone: string;
+  department: string;
+  role: string;
+  username: string;
+  password: string;
+};
+
 export default function CadastroFuncionario() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
     fullName: '',
     email: '',
     phone: '',
@@ -14,7 +25,7 @@ export default function CadastroFuncionario() {
     password: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -22,7 +33,7 @@ export default function CadastroFuncionario() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Simulação de envio para API
     console.log("Dados do formulário:", formData);

@@ -103,18 +103,18 @@ export default function EquipamentosPage() {
             <tbody className="bg-white divide-y divide-gray-200">
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10">
-                      <img className="h-10 w-10 rounded-full" src="https://www.deere.com/assets/images/region-4/products/tractors/row-crop-tractors/7r-210-tractor/7r_r4g013321_rrd_large_a4a7e55e7f9b551c0f9ed3d9ae3f98a9bb4e95bc.jpg" alt="" />
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10">
+                      <img className="h-10 w-10 rounded-full" src="/8400r_campo_large_7b13780a09551c33c057712d2c40f25f24c91db8.webp" alt="John Deere 8400R" />
+                        </div>
+                        <div className="ml-4">
+                            <div className="text-sm font-medium text-gray-900">Trator</div>
+                            <div className="text-sm text-gray-500">8400R</div>
+                        </div>
                     </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">Trator</div>
-                      <div className="text-sm text-gray-500">X500</div>
-                    </div>
-                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">John Deere X500</div>
+                  <div className="text-sm text-gray-900">John Deere 8400R</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -138,18 +138,18 @@ export default function EquipamentosPage() {
               </tr>
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10">
-                      <img className="h-10 w-10 rounded-full" src="https://www.deere.com/assets/images/region-4/products/harvesting/s700-combine-harvester/s770-combine/r4d066892_s770_combine_large_f9c5a6c1e8b9c9b9c7a0e2b1a0c9c9c9.jpg" alt="" />
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10">
+                      <img className="h-10 w-10 rounded-full" src="/S790.PNG" alt="John Deere S790" />
+                        </div>
+                        <div className="ml-4">
+                            <div className="text-sm font-medium text-gray-900">Colheitadeira</div>
+                            <div className="text-sm text-gray-500">S790</div>
+                        </div>
                     </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">Colheitadeira</div>
-                      <div className="text-sm text-gray-500">S770</div>
-                    </div>
-                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">John Deere S770</div>
+                  <div className="text-sm text-gray-900">John Deere S790</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">

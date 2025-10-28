@@ -56,8 +56,8 @@ export default function UserAppLayout({
                   href="/UserAPP/home"
                   className={`flex items-center p-3 rounded-md ${
                     isActive("/UserAPP/home")
-                      ? "bg-johndeere-green text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-johndeere-green bg-green-700 text-white"
+                      : "text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   <span className="material-symbols-outlined">dashboard</span>
@@ -69,8 +69,8 @@ export default function UserAppLayout({
                   href="/UserAPP/equipamentos"
                   className={`flex items-center p-3 rounded-md ${
                     isActive("/UserAPP/equipamentos")
-                      ? "bg-johndeere-green text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-johndeere-green bg-green-700 text-white"
+                      : "text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   <span className="material-symbols-outlined">agriculture</span>
@@ -82,8 +82,8 @@ export default function UserAppLayout({
                   href="/UserAPP/tarefas"
                   className={`flex items-center p-3 rounded-md ${
                     isActive("/UserAPP/tarefas")
-                      ? "bg-johndeere-green text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-johndeere-green bg-green-700 text-white"
+                      : "text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   <span className="material-symbols-outlined">assignment</span>
@@ -95,8 +95,8 @@ export default function UserAppLayout({
                   href="/UserAPP/alertas"
                   className={`flex items-center p-3 rounded-md ${
                     isActive("/UserAPP/alertas")
-                      ? "bg-johndeere-green text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-johndeere-green bg-green-700 text-white"
+                      : "text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   <span className="material-symbols-outlined">notifications</span>
@@ -108,8 +108,8 @@ export default function UserAppLayout({
                   href="/UserAPP/perfil"
                   className={`flex items-center p-3 rounded-md ${
                     isActive("/UserAPP/perfil")
-                      ? "bg-johndeere-green text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-johndeere-green bg-green-700 text-white"
+                      : "text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   <span className="material-symbols-outlined">person</span>
