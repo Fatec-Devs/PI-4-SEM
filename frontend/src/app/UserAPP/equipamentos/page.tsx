@@ -20,7 +20,7 @@ export default function EquipamentosPage() {
               </svg>
             </div>
           </div>
-          <button className="bg-johndeere-green text-white px-4 py-2 rounded-md hover:bg-johndeere-green/90 transition-colors duration-200">
+          <button className="bg-johndeere-green text-white px-4 py-2 rounded-md hover:opacity-90 transition-all duration-200" style={{ backgroundColor: '#367C2B' }}>
             Filtrar
           </button>
         </div>
@@ -128,8 +128,8 @@ export default function EquipamentosPage() {
                   Fazenda do Sul, Campo Grande
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <Link href="/UserAPP/equipamentos/1" className="text-johndeere-green hover:text-johndeere-green/80 mr-4">
-                    Detalhes
+                  <Link href="/UserAPP/equipamentos/1" className="text-johndeere-green hover:opacity-80 mr-4" style={{ color: '#367C2B' }}>
+                    Ver Detalhes
                   </Link>
                   <Link href="/UserAPP/equipamentos/1/manutencao" className="text-yellow-600 hover:text-yellow-900">
                     Manutenção
@@ -163,8 +163,8 @@ export default function EquipamentosPage() {
                   Oficina Central
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <Link href="/UserAPP/equipamentos/2" className="text-johndeere-green hover:text-johndeere-green/80 mr-4">
-                    Detalhes
+                  <Link href="/UserAPP/equipamentos/2" className="text-johndeere-green hover:opacity-80 mr-4" style={{ color: '#367C2B' }}>
+                    Ver Detalhes
                   </Link>
                   <Link href="/UserAPP/equipamentos/2/manutencao" className="text-yellow-600 hover:text-yellow-900">
                     Manutenção

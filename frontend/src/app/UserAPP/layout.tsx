@@ -155,7 +155,7 @@ export default function UserAppLayout({
                   <span className="material-symbols-outlined text-sm">person</span>
                 </div>
                 <span className="text-sm font-medium text-gray-700">
-                  João Silva
+                  Victor Hugo
                 </span>
               </div>
             </div>

@@ -5,36 +5,40 @@ import Link from 'next/link';
 export default function AdminHomePage() {
   return (
     <div className="flex min-h-screen">
-      <aside className="flex w-64 flex-col border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-        <div className="flex h-16 items-center px-6 shrink-0">
+      <aside className="flex w-64 flex-col border-r border-gray-200 bg-white shadow-lg">
+        <div className="flex h-16 items-center px-6 shrink-0 bg-white border-b border-gray-200">
           <img 
             alt="John Deere Logo" 
-            className="h-8 w-auto" 
+            className="h-10 w-auto rounded-lg" 
             src="/john-deere-logo.png"
           />
           <div className="ml-3">
-            <h1 className="text-lg font-bold text-primary dark:text-secondary">Admin</h1>
-            <p className="text-sm text-text-muted-light dark:text-text-muted-dark">John Deere</p>
+            <h1 className="text-lg font-bold text-johndeere-green" style={{ color: '#367C2B' }}>Admin</h1>
+            <p className="text-sm text-gray-600">John Deere</p>
           </div>
         </div>
-        <nav className="flex-1 space-y-2 px-4 py-4">
-          <Link href="#" className="flex items-center gap-3 rounded-md bg-primary/10 dark:bg-secondary/20 px-3 py-2 text-primary dark:text-secondary font-semibold">
-            <span className="material-symbols-outlined">dashboard</span>
+        <nav className="flex-1 space-y-2 px-4 py-4 bg-white">
+          <Link href="#" className="flex items-center gap-3 rounded-md bg-johndeere-green/10 px-3 py-2 text-johndeere-green font-semibold" style={{ backgroundColor: '#367C2B1A', color: '#367C2B' }}>
+            <img 
+              alt="John Deere Logo" 
+              className="h-5 w-auto" 
+              src="/john-deere-logo.png"
+            />
             <span className="text-sm font-medium">Dashboard</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700">
+          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-johndeere-green transition-colors">
             <span className="material-symbols-outlined">group</span>
             <span className="text-sm font-medium">Usuários</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700">
+          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-johndeere-green transition-colors">
             <span className="material-symbols-outlined">groups</span>
             <span className="text-sm font-medium">Grupos</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700">
+          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-johndeere-green transition-colors">
             <span className="material-symbols-outlined">analytics</span>
             <span className="text-sm font-medium">Relatórios</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700">
+          <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-johndeere-green transition-colors">
             <span className="material-symbols-outlined">settings</span>
             <span className="text-sm font-medium">Configurações</span>
           </Link>
@@ -43,12 +47,15 @@ export default function AdminHomePage() {
       <main className="flex-1 p-8">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-text-light dark:text-text-dark">Gerenciamento de Usuários</h1>
-            <p className="text-text-muted-light dark:text-text-muted-dark mt-1">
+            <h1 className="text-3xl font-bold text-gray-900">Gerenciamento de Usuários</h1>
+            <p className="text-gray-600 mt-1">
               Bem-vindo de volta, aqui está um resumo da sua operação.
             </p>
           </div>
-          <button className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">
+          <button 
+            className="flex items-center gap-2 rounded-md bg-johndeere-green px-4 py-2 text-sm font-bold text-white hover:bg-johndeere-green/90 transition-colors"
+            style={{ backgroundColor: '#367C2B' }}
+          >
             <span className="material-symbols-outlined">add</span>
             Adicionar Usuário
           </button>
@@ -64,7 +71,7 @@ export default function AdminHomePage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total de Usuários</p>
-                <p className="text-xl font-bold text-gray-800">120</p>
+                <p className="text-xl font-bold text-gray-800">10</p>
               </div>
             </div>
           </div>
@@ -78,7 +85,7 @@ export default function AdminHomePage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Usuários Ativos</p>
-                <p className="text-xl font-bold text-gray-800">98</p>
+                <p className="text-xl font-bold text-gray-800">8</p>
               </div>
             </div>
           </div>
@@ -91,8 +98,8 @@ export default function AdminHomePage() {
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Pendentes de Aprovação</p>
-                <p className="text-xl font-bold text-gray-800">12</p>
+                <p className="text-sm text-gray-500">Usuários Inativos</p>
+                <p className="text-xl font-bold text-gray-800">2</p>
               </div>
             </div>
           </div>
@@ -102,81 +109,186 @@ export default function AdminHomePage() {
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">search</span>
             <input 
-              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 pl-10 pr-4 text-text-light dark:text-text-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" 
+              className="w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:border-johndeere-green focus:outline-none focus:ring-1 focus:ring-johndeere-green" 
               placeholder="Buscar por nome ou email..." 
               type="text"
             />
           </div>
           <div>
-            <select className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-3 text-text-light dark:text-text-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+            <select className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 focus:border-johndeere-green focus:outline-none focus:ring-1 focus:ring-johndeere-green">
               <option>Filtrar por Grupo</option>
               <option>Administradores</option>
               <option>Usuários</option>
             </select>
           </div>
           <div>
-            <select className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 px-3 text-text-light dark:text-text-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+            <select className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-gray-900 focus:border-johndeere-green focus:outline-none focus:ring-1 focus:ring-johndeere-green">
               <option>Filtrar por Status</option>
               <option>Ativo</option>
               <option>Inativo</option>
             </select>
           </div>
         </div>
-        <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+            <thead className="border-b border-gray-200 bg-gray-50">
               <tr>
-                <th className="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Nome</th>
-                <th className="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Grupo</th>
-                <th className="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-right">Ações</th>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Email</th>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Grupo</th>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Carlos Silva</td>
-                <td className="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">carlos.silva@example.com</td>
+            <tbody className="divide-y divide-gray-200 bg-white">
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Carlos Silva</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">carlos.silva@johndeere.com</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/50 px-3 py-1 text-xs font-semibold text-blue-800 dark:text-blue-300">Administradores</span>
+                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Administradores</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
-                  <a className="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Ana Souza</td>
-                <td className="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">ana.souza@example.com</td>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Ana Souza</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">ana.souza@johndeere.com</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300">Ativo</span>
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
-                  <a className="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-text-light dark:text-text-dark">Pedro Almeida</td>
-                <td className="px-6 py-4 whitespace-nowrap text-text-muted-light dark:text-text-muted-dark">pedro.almeida@example.com</td>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Pedro Almeida</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">pedro.almeida@johndeere.com</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-gray-800 dark:text-gray-300">Usuários</span>
+                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/50 px-3 py-1 text-xs font-semibold text-red-800 dark:text-red-300">Inativo</span>
+                  <span className="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Inativo</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-primary dark:text-secondary hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
-                  <a className="font-medium text-red-600 dark:text-red-500 hover:underline" href="#">Excluir</a>
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Maria Santos</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">maria.santos@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Operações</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">João Oliveira</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">joao.oliveira@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">Manutenção</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Fernanda Costa</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">fernanda.costa@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Qualidade</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Roberto Lima</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">roberto.lima@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-800">Logística</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Juliana Martins</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">juliana.martins@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-800">TI</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Ricardo Pereira</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">ricardo.pereira@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Administradores</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
+                </td>
+              </tr>
+              <tr className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Camila Rodrigues</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-600">camila.rodrigues@johndeere.com</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Inativo</span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right">
+                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
+                  <span className="mx-2 text-gray-300">|</span>
+                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
                 </td>
               </tr>
             </tbody>

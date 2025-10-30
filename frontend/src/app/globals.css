@@ -1,11 +1,10 @@
 @import "tailwindcss";
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --johndeere-green: #367C2B;
+  --johndeere-yellow: #FFDE00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +23,28 @@ body {
 .form-input-error {
   border-color: #D32F2F;
   box-shadow: 0 0 0 1px #D32F2F;
+}
+
+.bg-johndeere-green {
+  background-color: var(--johndeere-green) !important;
+}
+
+.text-johndeere-green {
+  color: var(--johndeere-green) !important;
+}
+
+.border-johndeere-green {
+  border-color: var(--johndeere-green) !important;
+}
+
+.focus\:ring-johndeere-green:focus {
+  --tw-ring-color: var(--johndeere-green) !important;
+}
+
+.focus\:border-johndeere-green:focus {
+  border-color: var(--johndeere-green) !important;
+}
+
+.hover\:bg-johndeere-green\/90:hover {
+  background-color: rgba(54, 124, 43, 0.9) !important;
 }

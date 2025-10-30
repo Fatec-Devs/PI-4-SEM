@@ -17,9 +17,11 @@ export default function AdminLayout({
       {/* Sidebar */}
       <div className={`bg-johndeere-green text-white w-64 flex-shrink-0 ${isSidebarOpen ? 'block' : 'hidden'} md:block`}>
         <div className="p-4 flex items-center">
-          <div className="w-10 h-10 bg-white rounded-md flex items-center justify-center mr-3">
-            <span className="text-johndeere-green font-bold">JD</span>
-          </div>
+          <img 
+            alt="John Deere Logo" 
+            className="h-10 w-auto rounded-md mr-3" 
+            src="/john-deere-logo.png"
+          />
           <h1 className="text-xl font-bold">John Deere</h1>
         </div>
         <nav className="mt-6">
@@ -94,7 +96,7 @@ export default function AdminLayout({
                     <span className="text-sm font-medium text-gray-600">JS</span>
                   </div>
                 </button>
-                <span className="text-sm font-medium">João Silva</span>
+                <span className="text-sm font-medium">Guilherme Rios</span>
                 <span className="text-xs text-gray-500">Operador</span>
               </div>
             </div>
