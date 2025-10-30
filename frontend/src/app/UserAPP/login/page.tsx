@@ -20,24 +20,25 @@ export default function UserAppLogin() {
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-md">
           <header className="flex flex-col items-center justify-center mb-8">
-            <div className="w-16 h-16 bg-johndeere-green rounded-md flex items-center justify-center mb-4">
-              <img
-                alt="John Deere Logo"
-                className="h-10"
-                src="/john-deere-logo.png"
-              />
-            </div>
-            <h1 className="text-2xl font-bold text-johndeere-green">
-              User Management System
+            <img
+              alt="John Deere Logo"
+              className="h-16 w-auto rounded-md mb-4"
+              src="/john-deere-logo.png"
+            />
+            <h1 className="text-2xl font-bold text-johndeere-green" style={{ color: '#367C2B' }}>
+              Machine Track App
             </h1>
+            <p className="text-gray-600 mt-2 text-center">
+              Aplicativo para Operadores de Campo
+            </p>
           </header>
           <main className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
             <div className="text-center mb-6">
               <h2 className="text-xl font-bold text-gray-800">
-                Acessar sua conta
+                Acessar Machine Track
               </h2>
               <p className="text-sm text-gray-500">
-                Bem-vindo de volta!
+                Login exclusivo para operadores
               </p>
             </div>
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -46,7 +47,7 @@ export default function UserAppLogin() {
                   className="block text-sm font-medium text-gray-700"
                   htmlFor="email"
                 >
-                  E-mail ou nome de usuário
+                  E-mail ou código do operador
                 </label>
                 <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -65,7 +66,7 @@ export default function UserAppLogin() {
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
                     id="email"
                     name="email"
-                    placeholder="seu-email@exemplo.com"
+                    placeholder="operador@johndeere.com"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -113,16 +114,15 @@ export default function UserAppLogin() {
                 </div>
               </div>
               <button
-                className="w-full bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg
-                hover:bg-johndeere-green/90 transition-colors duration-300 focus:outline-none focus:ring-2
-                focus:ring-offset-2 focus:ring-johndeere-green/50 dark:focus:ring-offset-surface-dark"
+                className="w-full bg-johndeere-green text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 type="submit"
+                style={{ backgroundColor: '#367C2B' }}
               >
-                Entrar
+                Entrar no Machine Track
               </button>
               <div className="flex items-center justify-center">
                 <p className="text-xs text-gray-500">
-                  Não tem uma conta? <a href="#" className="text-johndeere-green hover:underline">Cadastre-se</a>
+                  Precisa de acesso? <a href="#" className="text-johndeere-green hover:underline" style={{ color: '#367C2B' }}>Contate o supervisor</a>
                 </p>
               </div>
             </form>

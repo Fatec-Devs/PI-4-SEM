@@ -5,49 +5,49 @@ import Link from 'next/link';
 export default function UserHomePage() {
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 bg-white dark:bg-background-dark border-r border-gray-200 dark:border-subtle-dark flex flex-col p-4">
+      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col p-4 shadow-lg">
         <div className="flex items-center gap-2 mb-10">
           <img 
             alt="John Deere Logo" 
             className="h-10 w-auto rounded-lg" 
             src="/john-deere-logo.png"
           />
-          <h1 className="text-xl font-bold text-foreground-light dark:text-foreground-dark">John Deere</h1>
+          <h1 className="text-xl font-bold text-johndeere-green" style={{ color: '#367C2B' }}>John Deere</h1>
         </div>
         <nav className="flex-1 flex flex-col gap-2">
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary-green/10 dark:bg-primary-green/20 text-primary-green dark:text-accent-yellow font-bold">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-johndeere-green/10 text-johndeere-green font-bold" style={{ backgroundColor: '#367C2B1A', color: '#367C2B' }}>
             <span className="material-symbols-outlined">dashboard</span>
             <span>Visão Geral</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-johndeere-green text-gray-700 transition-colors">
             <span className="material-symbols-outlined">agriculture</span>
             <span>Equipamentos</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-johndeere-green text-gray-700 transition-colors">
             <span className="material-symbols-outlined">task_alt</span>
             <span>Tarefas</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-johndeere-green text-gray-700 transition-colors">
             <span className="material-symbols-outlined">notifications</span>
             <span>Alertas</span>
           </Link>
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-johndeere-green text-gray-700 transition-colors">
             <span className="material-symbols-outlined">settings</span>
             <span>Configurações</span>
           </Link>
         </nav>
         <div className="mt-auto flex flex-col gap-4">
-          <button className="flex w-full items-center justify-center rounded-lg h-12 px-4 bg-primary-green text-white dark:text-foreground-dark font-bold text-sm tracking-wide shadow-lg hover:bg-primary-green/90 transition-all duration-300 ease-in-out">
+          <button className="flex w-full items-center justify-center rounded-lg h-12 px-4 bg-johndeere-green text-white font-bold text-sm tracking-wide shadow-lg hover:opacity-90 transition-all duration-300" style={{ backgroundColor: '#367C2B' }}>
             <span className="material-symbols-outlined mr-2">add_circle</span>
             <span>Adicionar Equipamento</span>
           </button>
-          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark text-sm">
+          <Link href="#" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-johndeere-green text-gray-700 text-sm transition-colors">
             <span className="material-symbols-outlined">help_outline</span>
             <span>Ajuda e Suporte</span>
           </Link>
         </div>
       </aside>
-      <main className="flex-1 p-8 bg-gray-50 dark:bg-background-dark/50">
+      <main className="flex-1 p-8 bg-gray-50">
         <header className="mb-8 flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-bold text-primary-green dark:text-accent-yellow">Painel do Operador</h1>
@@ -59,9 +59,10 @@ export default function UserHomePage() {
               <span className="absolute top-0 right-0 h-2 w-2 bg-status-red rounded-full"></span>
             </button>
             <div className="flex items-center gap-3">
-            <img src="/globe.svg" alt="Avatar" className="w-12 h-12 rounded-full object-cover" />
+              <span className="material-symbols-outlined text-sm">person</span>
+              {/* <img src="/globe.svg" alt="Avatar" className="w-12 h-12 rounded-full object-cover" /> */}
               <div>
-                <p className="font-semibold text-foreground-light dark:text-foreground-dark">João Silva</p>
+                <p className="font-semibold text-foreground-light dark:text-foreground-dark">Victor Hugo</p>
                 <p className="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Operador</p>
               </div>
             </div>

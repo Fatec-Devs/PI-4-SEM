@@ -101,9 +101,18 @@ export default function CadastroFuncionario() {
 
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Cadastro de Funcionário</h1>
-        <p className="text-gray-600">Preencha os dados para cadastrar um novo funcionário</p>
+      <div className="mb-6 flex items-center gap-4">
+        <div className="h-12 w-12">
+          <img 
+            src="/john-deere-logo.png" 
+            alt="John Deere Logo" 
+            className="h-12 w-auto rounded-lg"
+          />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-johndeere-green">Cadastro de Funcionário</h1>
+          <p className="text-gray-600">Preencha os dados para cadastrar um novo funcionário no sistema John Deere</p>
+        </div>
       </div>
       
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -238,15 +247,15 @@ export default function CadastroFuncionario() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-johndeere-green text-white rounded-md hover:bg-johndeere-green/90"
+              className="px-6 py-2 bg-johndeere-green text-white rounded-md hover:bg-johndeere-green/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-yellow transition-all shadow-sm"
             >
-              Cadastrar
+              Cadastrar Funcionário
             </button>
           </div>
         </form>
