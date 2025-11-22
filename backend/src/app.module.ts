@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaModule } from './shared/prisma/prisma.module';
-import { FuncionarioModule } from './modules/funcionario/funcionario.module';
-import { GrupoModule } from './modules/grupo/grupo.module';
-import { TimeModule } from './modules/time/time.module';
-import { AplicacaoModule } from './modules/aplicacao/aplicacao.module';
-import { UserAppModule } from './modules/user_app/user_app.module';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { PrismaModule } from '../prisma/prisma.module.js';
+import { FuncionarioModule } from './modules/funcionario/funcionario.module.js';
+import { GrupoModule } from './modules/grupo/grupo.module.js';
+import { TimeModule } from './modules/time/time.module.js';
+import { AplicacaoModule } from './modules/aplicacao/aplicacao.module.js';
+import { UserAppModule } from './modules/user_app/user_app.module.js';
 
 @Module({
   imports: [PrismaModule, FuncionarioModule, GrupoModule, TimeModule, AplicacaoModule, UserAppModule],

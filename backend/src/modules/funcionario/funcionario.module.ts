@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { FuncionarioService } from './funcionario.service';
-import { FuncionarioController } from './funcionario.controller';
-import { PrismaModule } from '../../shared/prisma/prisma.module';
+import { FuncionarioService } from './funcionario.service.js';
+import { FuncionarioController } from './funcionario.controller.js';
+import { PrismaModule } from '../../../prisma/prisma.module.js';
 
 @Module({
   imports: [PrismaModule],

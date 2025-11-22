@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { GrupoService } from './grupo.service';
-import { CreateGrupoDto } from './dto/create-grupo.dto';
-import { UpdateGrupoDto } from './dto/update-grupo.dto';
+import { GrupoService } from './grupo.service.js';
+import { CreateGrupoDto } from './dto/create-grupo.dto.js';
+import { UpdateGrupoDto } from './dto/update-grupo.dto.js';
 
 @Controller('grupos')
 export class GrupoController {

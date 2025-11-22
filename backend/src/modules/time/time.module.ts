@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TimeService } from './time.service';
-import { TimeController } from './time.controller';
-import { PrismaModule } from '../../shared/prisma/prisma.module';
+import { TimeService } from './time.service.js';
+import { TimeController } from './time.controller.js';
+import { PrismaModule } from '../../../prisma/prisma.module.js';
 
 @Module({
   imports: [PrismaModule],

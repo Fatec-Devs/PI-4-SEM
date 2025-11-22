@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../shared/prisma/prisma.service';
-import { CreateGrupoDto } from './dto/create-grupo.dto';
-import { UpdateGrupoDto } from './dto/update-grupo.dto';
+import { PrismaService } from '../../../prisma/prisma.service.js';
+import { CreateGrupoDto } from './dto/create-grupo.dto.js';
+import { UpdateGrupoDto } from './dto/update-grupo.dto.js';
 
 @Injectable()
 export class GrupoService {

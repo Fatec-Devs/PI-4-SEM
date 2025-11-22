@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../shared/prisma/prisma.service';
-import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
-import { UpdateFuncionarioDto } from './dto/update-funcionario.dto';
+import { PrismaService } from '../../../prisma/prisma.service.js';
+import { CreateFuncionarioDto } from './dto/create-funcionario.dto.js';
+import { UpdateFuncionarioDto } from './dto/update-funcionario.dto.js';
 
 @Injectable()
 export class FuncionarioService {

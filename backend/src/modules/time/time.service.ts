@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../shared/prisma/prisma.service';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { UpdateTimeDto } from './dto/update-time.dto';
+import { PrismaService } from '../../../prisma/prisma.service.js';
+import { CreateTimeDto } from './dto/create-time.dto.js';
+import { UpdateTimeDto } from './dto/update-time.dto.js';
 
 @Injectable()
 export class TimeService {

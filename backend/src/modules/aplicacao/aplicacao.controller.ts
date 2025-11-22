@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { AplicacaoService } from './aplicacao.service';
-import { CreateAplicacaoDto } from './dto/create-aplicacao.dto';
-import { UpdateAplicacaoDto } from './dto/update-aplicacao.dto';
+import { AplicacaoService } from './aplicacao.service.js';
+import { CreateAplicacaoDto } from './dto/create-aplicacao.dto.js';
+import { UpdateAplicacaoDto } from './dto/update-aplicacao.dto.js';
 
 @Controller('aplicacoes')
 export class AplicacaoController {

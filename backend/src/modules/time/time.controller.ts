@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { TimeService } from './time.service';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { UpdateTimeDto } from './dto/update-time.dto';
+import { TimeService } from './time.service.js';
+import { CreateTimeDto } from './dto/create-time.dto.js';
+import { UpdateTimeDto } from './dto/update-time.dto.js';
 
 @Controller('times')
 export class TimeController {

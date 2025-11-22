@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { UserAppService } from './user_app.service';
-import { CreateUserAppDto } from './dto/create-user_app.dto';
-import { UpdateUserAppDto } from './dto/update-user_app.dto';
+import { UserAppService } from './user_app.service.js';
+import { CreateUserAppDto } from './dto/create-user_app.dto.js';
+import { UpdateUserAppDto } from './dto/update-user_app.dto.js';
 
 @Controller('user-apps')
 export class UserAppController {
