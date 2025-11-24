@@ -7,9 +7,10 @@ import { GrupoModule } from './modules/grupo/grupo.module.js';
 import { TimeModule } from './modules/time/time.module.js';
 import { AplicacaoModule } from './modules/aplicacao/aplicacao.module.js';
 import { UserAppModule } from './modules/user_app/user_app.module.js';
+import { AuthModule } from './modules/auth/auth.module.js';
 
 @Module({
-  imports: [PrismaModule, FuncionarioModule, GrupoModule, TimeModule, AplicacaoModule, UserAppModule],
+  imports: [PrismaModule, FuncionarioModule, GrupoModule, TimeModule, AplicacaoModule, UserAppModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

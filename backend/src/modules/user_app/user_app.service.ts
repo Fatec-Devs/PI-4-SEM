@@ -1,14 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service.js';
+import { PrismaService } from '../../..//prisma/prisma.service.js';
 import { CreateUserAppDto } from './dto/create-user_app.dto.js';
 import { UpdateUserAppDto } from './dto/update-user_app.dto.js';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserAppService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateUserAppDto) {
-    return this.prisma.user_app.create({ data: dto as any });
+  async create(dto: CreateUserAppDto) {
+    const data: any = { ...dto };
+    if (dto.senha) {
+      data.senha = await bcrypt.hash(dto.senha, 10);
+    }
+    return this.prisma.user_app.create({ data });
   }
 
   findAll() {
@@ -23,7 +28,11 @@ export class UserAppService {
 
   async update(id: number, dto: UpdateUserAppDto) {
     await this.findOne(id);
-    return this.prisma.user_app.update({ where: { id_user_app: id }, data: dto as any });
+    const data: any = { ...dto };
+    if (dto.senha) {
+      data.senha = await bcrypt.hash(dto.senha, 10);
+    }
+    return this.prisma.user_app.update({ where: { id_user_app: id }, data });
   }
 
   async remove(id: number) {
