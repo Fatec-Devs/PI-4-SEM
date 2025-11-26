@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>John Deere User Management</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#367C2B", // John Deere Green
+                        "secondary": "#FFDE00", // John Deere Yellow
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                        "foreground-light": "#1F2937",
+                        "foreground-dark": "#F9FAFB",
+                        "muted-light": "#6B7280",
+                        "muted-dark": "#9CA3AF",
+                        "border-light": "#E5E7EB",
+                        "border-dark": "#374151"
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark">
+<div class="flex flex-col min-h-screen">
+<header class="flex items-center justify-between px-6 py-4 border-b border-border-light dark:border-border-dark shadow-sm bg-white dark:bg-gray-800">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<img alt="John Deere Logo" class="h-14 w-auto rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKzWNAVF9nivRk_dxT7WNrE0ZJHkMybw2BNLLkbQ-sdzEuroCIxbWUjfUo3GNJPGTnXUZrwvCXyYGjrHYlqmscBV2h2Esclli5AlrT_mpEnvITxJTt8NzJgSX3zJdtUr17mJ2psSGftD1-3Id8SRfz1nHzueyQQuEOryUsCBBQ_-S7Md1IqUBXFBmF7nL-qEvJSTAvyITWNqCcYFiM2GlRGwJ3hrdB8qqCcOBoJH9irOjega72TahWJjQ0EgUaASKBdG5zh0FVVZY"/>
+<h1 class="text-xl font-bold text-primary">John Deere</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+<a class="text-primary font-bold" href="#">Dashboard</a>
+<a class="text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="#">Users</a>
+<a class="text-muted-light dark:text-muted-dark hover:text-primary transition-colors" href="#">Groups</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark">search</span>
+<input class="w-full max-w-xs pl-10 pr-4 py-2 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search..." type="text"/>
+</div>
+<button aria-label="Notifications" class="relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+</span>
+</button>
+<img alt="User Avatar" class="size-10 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaU4f_5yL0uE3M64Vnpxs8dQygijHVZbzmDyuZc_fXd9CMXHkOIaIxyHHydiz6VEmCmFeaShYD9ro-0aMdFFUcM_CwMXAivqJXfprMX3UH1UFLPePw8CPNWoSzrLFOYY1d4UgxtkQgJPieOJw00sRz_b6r2yRDqJMM7i1j771OWWO5J69_13wVSDl4d7Otvl_3EWKtSAhSrh7F2r3eYUa9vTb6FAYyZTIGUmNtSh-_vSJYWlNbc_9Sf9oR2tOkYGgeVRQbn1QTOkU"/>
+</div>
+</header>
+<main class="flex-1 p-6 md:p-10 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-bold text-foreground-light dark:text-foreground-dark">Application User Dashboard</h2>
+<p class="text-muted-light dark:text-muted-dark">View-only access to user and group information.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+<div class="p-4 sm:p-6 border-b border-border-light dark:border-border-dark">
+<div class="flex flex-col sm:flex-row gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search by name, email, or group..." type="text"/>
+</div>
+<div class="flex gap-4">
+<div class="relative">
+<select class="appearance-none w-full sm:w-48 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg py-2 pl-3 pr-10 text-foreground-light dark:text-foreground-dark focus:outline-none focus:ring-2 focus:ring-primary">
+<option>Group: All</option>
+<option>Sales</option>
+<option>Marketing</option>
+<option>Engineering</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none w-full sm:w-48 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg py-2 pl-3 pr-10 text-foreground-light dark:text-foreground-dark focus:outline-none focus:ring-2 focus:ring-primary">
+<option>Status: All</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-muted-light dark:text-muted-dark pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 dark:bg-gray-700/50">
+<tr>
+<th class="px-6 py-3 font-medium uppercase text-xs tracking-wider text-muted-light dark:text-muted-dark">Name</th>
+<th class="px-6 py-3 font-medium uppercase text-xs tracking-wider text-muted-light dark:text-muted-dark">Group</th>
+<th class="px-6 py-3 font-medium uppercase text-xs tracking-wider text-muted-light dark:text-muted-dark">Status</th>
+<th class="px-6 py-3 font-medium uppercase text-xs tracking-wider text-muted-light dark:text-muted-dark">Last Login</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-light dark:divide-border-dark">
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div>
+<div class="font-medium text-foreground-light dark:text-foreground-dark">Ethan Carter</div>
+<div class="text-sm text-muted-light dark:text-muted-dark">ethan.carter@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Sales</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-muted-light dark:text-muted-dark">
+                                2 days ago
+                            </td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div>
+<div class="font-medium text-foreground-light dark:text-foreground-dark">Olivia Bennett</div>
+<div class="text-sm text-muted-light dark:text-muted-dark">olivia.bennett@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Marketing</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-muted-light dark:text-muted-dark">
+                                5 hours ago
+                            </td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div>
+<div class="font-medium text-foreground-light dark:text-foreground-dark">Liam Harper</div>
+<div class="text-sm text-muted-light dark:text-muted-dark">liam.harper@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">Engineering</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+<span class="h-2 w-2 rounded-full bg-gray-400"></span>
+                                    Inactive
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-muted-light dark:text-muted-dark">
+                                1 month ago
+                            </td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div>
+<div class="font-medium text-foreground-light dark:text-foreground-dark">Ava Foster</div>
+<div class="text-sm text-muted-light dark:text-muted-dark">ava.foster@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Sales</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-muted-light dark:text-muted-dark">
+                                1 week ago
+                            </td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div>
+<div class="font-medium text-foreground-light dark:text-foreground-dark">Noah Clark</div>
+<div class="text-sm text-muted-light dark:text-muted-dark">noah.clark@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Marketing</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-3 py-1 inline-flex items-center gap-1.5 text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary">
+<span class="h-2 w-2 rounded-full bg-primary"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-muted-light dark:text-muted-dark">
+                                Yesterday
+                            </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 sm:p-6 border-t border-border-light dark:border-border-dark flex items-center justify-between">
+<p class="text-sm text-muted-light dark:text-muted-dark">Showing 1 to 5 of 20 results</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled="">Previous</button>
+<button class="px-3 py-1 border border-border-light dark:border-border-dark rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

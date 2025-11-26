@@ -6,7 +6,6 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -20,6 +19,12 @@ const config: Config = {
       },
       fontFamily: {
         "display": ["Public Sans"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.375rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
       },
     },
   },

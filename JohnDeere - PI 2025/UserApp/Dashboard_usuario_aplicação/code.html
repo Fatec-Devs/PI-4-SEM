@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>John Deere User Dashboard</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-green": "#367c2b",
+                        "primary-yellow": "#ffde00",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#1a1a1a",
+                        "foreground-light": "#1c1c1a",
+                        "foreground-dark": "#e3e3e0",
+                        "subtle-light": "#e5e5e5",
+                        "subtle-dark": "#333333",
+                        "accent-green": "#367c2b",
+                        "accent-yellow": "#ffde00",
+                        "status-green": "#28a745",
+                        "status-yellow": "#ffc107",
+                        "status-red": "#dc3545",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark">
+<div class="flex min-h-screen">
+<aside class="w-64 bg-background-light dark:bg-background-dark border-r border-subtle-light dark:border-subtle-dark flex flex-col p-4">
+<div class="flex items-center gap-2 mb-10">
+<img alt="John Deere Logo" class="h-10 w-auto rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKzWNAVF9nivRk_dxT7WNrE0ZJHkMybw2BNLLkbQ-sdzEuroCIxbWUjfUo3GNJPGTnXUZrwvCXyYGjrHYlqmscBV2h2Esclli5AlrT_mpEnvITxJTt8NzJgSX3zJdtUr17mJ2psSGftD1-3Id8SRfz1nHzueyQQuEOryUsCBBQ_-S7Md1IqUBXFBmF7nL-qEvJSTAvyITWNqCcYFiM2GlRGwJ3hrdB8qqCcOBoJH9irOjega72TahWJjQ0EgUaASKBdG5zh0FVVZY"/>
+<h1 class="text-xl font-bold text-foreground-light dark:text-foreground-dark">John Deere</h1>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary-green/10 dark:bg-primary-green/20 text-primary-green dark:text-accent-yellow font-bold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Visão Geral</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+<span>Equipamentos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span>Tarefas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span>Alertas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-4">
+<button class="flex w-full items-center justify-center rounded-lg h-12 px-4 bg-primary-green text-white dark:text-foreground-dark font-bold text-sm tracking-wide shadow-lg hover:bg-primary-green/90 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined mr-2">add_circle</span>
+<span>Adicionar Equipamento</span>
+</button>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-subtle-light/50 dark:hover:bg-subtle-dark/50 text-foreground-light dark:text-foreground-dark text-sm" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Ajuda e Suporte</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 p-8 bg-gray-50 dark:bg-background-dark/50">
+<header class="mb-8 flex justify-between items-center">
+<div>
+<h1 class="text-4xl font-bold text-primary-green dark:text-accent-yellow">Painel do Operador</h1>
+<p class="text-foreground-light/70 dark:text-foreground-dark/70 mt-1">Bem-vindo de volta, aqui está um resumo da sua operação.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative">
+<span class="material-symbols-outlined text-3xl text-foreground-light/80 dark:text-foreground-dark/80">notifications</span>
+<span class="absolute top-0 right-0 h-2 w-2 bg-status-red rounded-full"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwZbEn8FfehQr3cY46-9oLs_xPWPkvY9PdO2pV54iylJf7ivv-AgS26DZ2O_DbKeSKa9fbOJPc1ZIvYjJRgc0IL_1q_f7EP0DE3nPuGJnQKLRZcO84xj8CJdtm3qIw6PSFVDgijhcwFFGX97XIENvXr4IctxRbUGsyGbciY-vPVDZfqSGatYtNflXawzm_O6Hgy7bT3Quxp2VIUv6yP7yThFTkDayvKLs7rToD9j13CJs1O4_xUz4LoqbWoVYx6YtarAnAjPIcHUA")'></div>
+<div>
+<p class="font-semibold text-foreground-light dark:text-foreground-dark">João Silva</p>
+<p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Operador</p>
+</div>
+</div>
+</div>
+</header>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white dark:bg-subtle-dark p-6 rounded-xl shadow-md flex items-center gap-4">
+<div class="p-3 rounded-full bg-status-green/10">
+<span class="material-symbols-outlined text-3xl text-status-green">check_circle</span>
+</div>
+<div>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Equipamentos Ativos</p>
+<p class="text-2xl font-bold text-foreground-light dark:text-foreground-dark">1</p>
+</div>
+</div>
+<div class="bg-white dark:bg-subtle-dark p-6 rounded-xl shadow-md flex items-center gap-4">
+<div class="p-3 rounded-full bg-status-yellow/10">
+<span class="material-symbols-outlined text-3xl text-status-yellow">build</span>
+</div>
+<div>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Em Manutenção</p>
+<p class="text-2xl font-bold text-foreground-light dark:text-foreground-dark">1</p>
+</div>
+</div>
+<div class="bg-white dark:bg-subtle-dark p-6 rounded-xl shadow-md flex items-center gap-4">
+<div class="p-3 rounded-full bg-status-red/10">
+<span class="material-symbols-outlined text-3xl text-status-red">warning</span>
+</div>
+<div>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Alertas Críticos</p>
+<p class="text-2xl font-bold text-foreground-light dark:text-foreground-dark">1</p>
+</div>
+</div>
+</section>
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-foreground-light dark:text-foreground-dark mb-4">Status do Equipamento</h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-subtle-dark rounded-xl shadow-md overflow-hidden flex flex-col">
+<div class="h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhtWUsOCZSC_xgIEndoG_6_yRr9NEBdgzFWdAk2eRFUV06iwUMoihYCnY4YUXnWo9jBm_PdYXbC5n3z0YXRf4vksWDqEezDc_Rtsoyfs3MTQ_e6XoGf25V331P_VDJdyxu_q2W2Kb9ceke2GJRSrXF-K4U_L1p5YfoiXZYu_GIwodo-YI49NKNRbf3d7DTkbqlyr-YR_dp_K0rJmn3O1Ua1O-kICrom1FQjKAbL8zh8HkSgzPtweuNa6v4YXYRg1_VnQOJ7enNbtw");'></div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xl font-bold text-foreground-light dark:text-foreground-dark">Trator Modelo X500</h3>
+<span class="inline-flex items-center gap-1.5 bg-status-green/10 text-status-green text-xs font-semibold px-2.5 py-1 rounded-full">
+<span class="h-1.5 w-1.5 bg-status-green rounded-full"></span>
+                                    Em Operação
+                                </span>
+</div>
+<p class="text-foreground-light/70 dark:text-foreground-dark/70 text-sm mb-4"><span class="material-symbols-outlined text-sm align-middle mr-1">location_on</span> Fazenda do Sol, Campo Grande</p>
+<div class="mt-auto grid grid-cols-3 gap-4 text-center">
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Horas de Uso</p><p class="font-bold text-lg">1,250h</p></div>
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Combustível</p><p class="font-bold text-lg">85%</p></div>
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Óleo</p><p class="font-bold text-lg text-status-red">Baixo</p></div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-subtle-dark rounded-xl shadow-md overflow-hidden flex flex-col">
+<div class="h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7RISuGflzTbQ4mAcWtnALIKFqyD-iujEesAn7PBoZsVlEMvP0QXcVyxd8OrMB8rjyPFVVBBINwWBTWpdf8lesQ3tlh1YcbdFLwTu9u2pDwiL1rCeSF5-LsJ5j5XPJtPCVhIkNKr1HBzxgzs2tAgPQc3LvbEMwGL957Yx8V4oM4Epr19Si6u2Tdhm3oYx4iZXf323myFaI2lnOwLbK88LPuvrLW8AB8o3ctonC23VHtEvrAc8pQ5hQUrgZN93rA6l3b4qLLtuJGyo");'></div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xl font-bold text-foreground-light dark:text-foreground-dark">Colheitadeira S770</h3>
+<span class="inline-flex items-center gap-1.5 bg-status-yellow/10 text-status-yellow text-xs font-semibold px-2.5 py-1 rounded-full">
+<span class="h-1.5 w-1.5 bg-status-yellow rounded-full"></span>
+                                    Em Manutenção
+                                </span>
+</div>
+<p class="text-foreground-light/70 dark:text-foreground-dark/70 text-sm mb-4"><span class="material-symbols-outlined text-sm align-middle mr-1">calendar_today</span> Próxima manutenção em 30 dias</p>
+<div class="mt-auto grid grid-cols-3 gap-4 text-center">
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Horas de Uso</p><p class="font-bold text-lg">2,500h</p></div>
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Filtro de Ar</p><p class="font-bold text-lg text-status-yellow">Verificar</p></div>
+<div><p class="text-sm text-foreground-light/60 dark:text-foreground-dark/60">Status</p><p class="font-bold text-lg">Aguardando Peça</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<section>
+<h2 class="text-2xl font-bold text-foreground-light dark:text-foreground-dark mb-4">Alertas Recentes</h2>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 bg-white dark:bg-subtle-dark rounded-xl shadow-sm">
+<div class="flex-shrink-0 size-10 flex items-center justify-center bg-status-red/10 rounded-full">
+<span class="material-symbols-outlined text-status-red">oil_barrel</span>
+</div>
+<div>
+<p class="font-semibold text-foreground-light dark:text-foreground-dark">Nível de óleo baixo no Trator Modelo X500</p>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">25 de Julho, 2024 - <span class="font-medium text-status-red">Crítico</span></p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-white dark:bg-subtle-dark rounded-xl shadow-sm">
+<div class="flex-shrink-0 size-10 flex items-center justify-center bg-status-yellow/10 rounded-full">
+<span class="material-symbols-outlined text-status-yellow">air</span>
+</div>
+<div>
+<p class="font-semibold text-foreground-light dark:text-foreground-dark">Filtro de ar sujo na Colheitadeira Modelo S770</p>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">20 de Julho, 2024 - <span class="font-medium text-status-yellow">Atenção</span></p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-2xl font-bold text-foreground-light dark:text-foreground-dark mb-4">Tarefas Pendentes</h2>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 bg-white dark:bg-subtle-dark rounded-xl shadow-sm">
+<div class="flex-shrink-0 size-10 flex items-center justify-center bg-primary-green/10 rounded-full">
+<span class="material-symbols-outlined text-primary-green">checklist</span>
+</div>
+<div>
+<p class="font-semibold text-foreground-light dark:text-foreground-dark">Verificar nível de óleo do Trator Modelo X500</p>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Prazo: 30 de Julho, 2024</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-white dark:bg-subtle-dark rounded-xl shadow-sm">
+<div class="flex-shrink-0 size-10 flex items-center justify-center bg-primary-green/10 rounded-full">
+<span class="material-symbols-outlined text-primary-green">filter_alt</span>
+</div>
+<div>
+<p class="font-semibold text-foreground-light dark:text-foreground-dark">Substituir filtro de ar da Colheitadeira S770</p>
+<p class="text-sm text-foreground-light/70 dark:text-foreground-dark/70">Prazo: 15 de Agosto, 2024</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+</body></html>

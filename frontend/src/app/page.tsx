@@ -1,103 +1,139 @@
-import Image from "next/image";
+"use client";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    // Simulação de autenticação - em produção seria uma chamada à API
+    if (email && password) {
+      // Simulação de roles baseado no email
+      const isAdmin = email.includes('admin') || email.includes('gerente');
+      
+      setTimeout(() => {
+        if (isAdmin) {
+          router.push('/admin/home');
+        } else {
+          router.push('/funcionarios');
+        }
+        setLoading(false);
+      }, 1000);
+    } else {
+      setLoading(false);
+      alert('Por favor, preencha todos os campos');
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      <div className="flex flex-col items-center justify-center w-full p-4">
+        <div className="w-full max-w-md">
+          <header className="flex flex-col items-center justify-center mb-8">
+            <img
+              alt="John Deere Logo"
+              className="h-20 w-auto rounded-lg mb-4"
+              src="/john-deere-logo.png"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <h1 className="text-3xl font-bold text-johndeere-green" style={{ color: '#367C2B' }}>
+              Sistema John Deere
+            </h1>
+            <p className="text-gray-600 mt-2 text-center">
+              Machine Track & Management
+            </p>
+          </header>
+          <main className="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">
+                Acessar sua conta
+              </h2>
+              <p className="text-gray-600">
+                Bem-vindo ao sistema John Deere
+              </p>
+            </div>
+            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+              <div>
+                <label
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                  htmlFor="email"
+                >
+                  E-mail ou nome de usuário
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    person
+                  </span>
+                  <input
+                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    id="email"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                  htmlFor="password"
+                >
+                  Senha
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    lock
+                  </span>
+                  <input
+                    className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-johndeere-green focus:border-johndeere-green"
+                    id="password"
+                    name="password"
+                    placeholder="Digite sua senha"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 text-johndeere-green border-gray-300 rounded focus:ring-johndeere-green"
+                  />
+                  <span className="ml-2 text-gray-600">Lembrar de mim</span>
+                </label>
+                <a href="#" className="text-johndeere-green hover:underline" style={{ color: '#367C2B' }}>
+                  Esqueceu a senha?
+                </a>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 text-white bg-johndeere-green hover:bg-johndeere-green/90 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-johndeere-green focus:ring-offset-2 transition-colors disabled:opacity-50"
+                style={{ backgroundColor: loading ? '#367C2B80' : '#367C2B' }}
+              >
+                {loading ? 'Entrando...' : 'Entrar'}
+              </button>
+            </form>
+            
+            {/* Info sobre roles */}
+            <div className="mt-6 p-4 bg-johndeere-yellow/10 border border-johndeere-yellow/30 rounded-lg">
+              <p className="text-xs text-gray-600 text-center">
+                <strong>Portal Funcionários:</strong> Use "admin@johndeere.com" para área administrativa ou qualquer outro email para portal de funcionários<br/>
+                <strong>Machine Track:</strong> Acesse <a href="/UserAPP/login" className="text-johndeere-green underline">/UserAPP/login</a> para operadores de campo
+              </p>
+            </div>
+          </main>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }

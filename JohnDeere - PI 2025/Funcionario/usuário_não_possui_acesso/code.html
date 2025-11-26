@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Access Denied</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f906",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23230f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .john-deere-green {
+            color: #367c2b;
+        }
+        .john-deere-yellow {
+            color: #f9f906;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col items-center justify-center min-h-screen p-4 text-center">
+<div class="w-full max-w-lg">
+<div class="flex justify-center mb-6">
+<svg class="h-12 w-auto john-deere-green" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2ZM12 4c4.42 0 8 3.58 8 8s-3.58 8-8 8-8-3.58-8-8 3.58-8 8-8Z" fill="#367c2b" fill-rule="evenodd"></path>
+<path d="M11 15v-2h2v2h-2Zm0-4h2V7h-2v4Z" fill="#367c2b"></path>
+</svg>
+</div>
+<h1 class="text-4xl font-bold text-background-dark dark:text-background-light mb-2">Usuário Não Possui Acesso</h1>
+<p class="text-lg text-background-dark/70 dark:text-background-light/70 mb-8">
+                Você não possui as permissões de grupo necessárias para acessar o sistema de gerenciamento de usuários. Por favor, contate o administrador do sistema para obter assistência.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary/20 hover:bg-primary/30 text-background-dark dark:text-background-light font-bold transition-colors">
+                    Voltar
+                </button>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-black font-bold transition-colors hover:bg-primary/80">
+                    Contatar Administrador
+                </button>
+</div>
+</div>
+</div>
+
+
+</body></html>
