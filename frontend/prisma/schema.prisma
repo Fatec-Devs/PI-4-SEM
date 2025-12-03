@@ -1,10 +1,163 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["johndeere", "public"]
 }
+
+// ========================================
+// SCHEMA JOHNDEERE - Sistema de Gerenciamento de Usuários
+// ========================================
+
+// Enum para roles de usuários funcionários (Admin/Comum)
+enum UserRole {
+  ADMIN   // Acesso completo (CRUD)
+  COMUM   // Somente leitura
+  
+  @@map("user_role")
+  @@schema("johndeere")
+}
+
+// Enum para roles de usuários de aplicação
+enum AppUserRole {
+  ROLE_1  // Primeira role
+  ROLE_2  // Segunda role
+  ROLE_3  // Terceira role
+  ROLE_4  // Quarta role
+  
+  @@map("app_user_role")
+  @@schema("johndeere")
+}
+
+// Enum para status de usuário
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  
+  @@map("user_status")
+  @@schema("johndeere")
+}
+
+// Tabela de Funcionários (Usuários Admin e Comum)
+model Employee {
+  id                String              @id @default(uuid())
+  matricula         String              @unique
+  nome              String
+  email             String              @unique
+  username          String              @unique
+  passwordHash      String              @map("password_hash") // Senha criptografada com bcrypt
+  passwordExpiresAt DateTime            @map("password_expires_at") // Expira em 50 dias
+  role              UserRole            @default(COMUM)
+  status            UserStatus          @default(ACTIVE)
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  lastLogin         DateTime?           @map("last_login")
+  
+  // Relacionamentos
+  employeeTeams     EmployeeTeam[]      // Many-to-Many com Teams
+  
+  @@map("employees")
+  @@schema("johndeere")
+}
+
+// Tabela de Times
+model Team {
+  id                String              @id @default(uuid())
+  codigo            String              @unique  // Código do time (ex: DEV, INFRA)
+  nome              String              @unique
+  descricao         String?
+  status            UserStatus          @default(ACTIVE)
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  
+  // Relacionamentos
+  employeeTeams     EmployeeTeam[]      // Many-to-Many com Employees
+  
+  @@map("teams")
+  @@schema("johndeere")
+}
+
+// Tabela de relacionamento Many-to-Many entre Funcionários e Times
+model EmployeeTeam {
+  funcionarioId     String              @map("funcionario_id")
+  grupoId           String              @map("grupo_id")
+  assignedAt        DateTime            @default(now()) @map("assigned_at")
+  
+  // Relacionamentos
+  employee          Employee            @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  team              Team                @relation(fields: [grupoId], references: [id], onDelete: Cascade)
+  
+  @@id([funcionarioId, grupoId])
+  @@unique([funcionarioId, grupoId])
+  @@map("employee_teams")
+  @@schema("johndeere")
+}
+
+// Tabela de Usuários de Aplicação (para integrações entre sistemas)
+model ApplicationUser {
+  id                String              @id @default(uuid())
+  username          String              @unique
+  description       String?             // Descrição do usuário de aplicação
+  role              AppUserRole         @default(ROLE_1) // Role do usuário de aplicação
+  passwordHash      String?             @map("password_hash")  // Senha criptografada (bcrypt) - usado quando AWS não está disponível
+  passwordPlainText String?             @map("password_plain_text") // Senha em texto - salva temporariamente após criação/rotação
+  awsSecretArn      String?             @map("aws_secret_arn")  // ARN do secret no AWS Secrets Manager (opcional)
+  lastRotation      DateTime?           @map("last_rotation")
+  passwordExpiresAt DateTime            @map("password_expires_at")  // Data de expiração (50 dias)
+  status            UserStatus          @default(ACTIVE)
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  
+  // Relacionamentos
+  passwordHistory   PasswordHistory[]
+  
+  @@map("application_users")
+  @@schema("johndeere")
+}
+
+// Histórico de senhas para evitar reutilização
+model PasswordHistory {
+  id                String              @id @default(uuid())
+  userId            String              @map("user_id")
+  passwordHash      String              @map("password_hash")
+  createdBy         String              @map("created_by")  // Username de quem criou
+  createdAt         DateTime            @default(now()) @map("created_at")
+  
+  // Relacionamentos
+  user              ApplicationUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("password_history")
+  @@schema("johndeere")
+  @@index([userId])
+}
+
+// Tabela de Auditoria
+model AuditLog {
+  id                String              @id @default(uuid())
+  action            String              // CREATE, UPDATE, DELETE, LOGIN, PASSWORD_CHANGE, SEED_DATABASE
+  entity            String              // EMPLOYEE, TEAM, APP_USER, MULTIPLE
+  entityId          String              @map("entity_id")
+  performedBy       String              @map("performed_by")  // Username de quem executou
+  details           Json?               // JSON com detalhes da operação
+  ipAddress         String?             @map("ip_address")
+  userAgent         String?             @map("user_agent")
+  createdAt         DateTime            @default(now()) @map("created_at")
+  
+  @@map("audit_logs")
+  @@schema("johndeere")
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+// ========================================
+// SCHEMA PUBLIC - Mantido para compatibilidade
+// ========================================
 
 model aplicacao {
   id_app             Int                  @id @default(autoincrement())
@@ -13,6 +166,8 @@ model aplicacao {
   id_time            Int?
   time               time?                @relation(fields: [id_time], references: [id_time])
   aplicacao_user_app aplicacao_user_app[]
+  
+  @@schema("public")
 }
 
 model aplicacao_user_app {
@@ -22,6 +177,7 @@ model aplicacao_user_app {
   user_app    user_app  @relation(fields: [id_user_app], references: [id_user_app], onDelete: Cascade)
 
   @@id([id_app, id_user_app])
+  @@schema("public")
 }
 
 model funcionario {
@@ -32,6 +188,8 @@ model funcionario {
   email             String?
   funcionario_grupo funcionario_grupo[]
   user_app          user_app[]
+  
+  @@schema("public")
 }
 
 model funcionario_grupo {
@@ -41,6 +199,7 @@ model funcionario_grupo {
   funcionario           funcionario @relation(fields: [matricula_funcionario], references: [matricula])
 
   @@id([matricula_funcionario, id_grupo])
+  @@schema("public")
 }
 
 model grupo {
@@ -48,6 +207,8 @@ model grupo {
   nome              String
   funcionario_grupo funcionario_grupo[]
   time              time[]
+  
+  @@schema("public")
 }
 
 model time {
@@ -57,13 +218,18 @@ model time {
   pdl       String?
   aplicacao aplicacao[]
   grupo     grupo?      @relation(fields: [id_grupo], references: [id_grupo])
+  
+  @@schema("public")
 }
 
 model user_app {
   id_user_app           Int                  @id @default(autoincrement())
   username              String
   senha                 String
+  role                  String?
   matricula_funcionario String?
   aplicacao_user_app    aplicacao_user_app[]
   funcionario           funcionario?         @relation(fields: [matricula_funcionario], references: [matricula])
+  
+  @@schema("public")
 }
