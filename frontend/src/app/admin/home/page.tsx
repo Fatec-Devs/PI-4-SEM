@@ -1,8 +1,160 @@
 "use client";
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+
+interface Funcionario {
+  matricula: string;
+  nome: string;
+  username: string;
+  email: string | null;
+  grupo?: string;
+  status: 'Ativo' | 'Inativo';
+}
 
 export default function AdminHomePage() {
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedFuncionarios, setSelectedFuncionarios] = useState<Set<string>>(new Set());
+  const [selectAll, setSelectAll] = useState(false);
+  const [error, setError] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Buscar funcionários do banco
+  useEffect(() => {
+    fetchFuncionarios();
+  }, []);
+
+  const fetchFuncionarios = async () => {
+    try {
+      const response = await fetch('/api/funcionariobd');
+      if (response.ok) {
+        const data = await response.json();
+        // Adicionar status padrão e grupo
+        const funcionariosComDados = data.map((func: any) => ({
+          ...func,
+          status: func.matricula === 'ADMIN001' ? 'Ativo' : 'Ativo', // Por enquanto todos ativos
+          grupo: func.matricula === 'ADMIN001' ? 'Administradores' : 'Usuários'
+        }));
+        setFuncionarios(funcionariosComDados);
+      } else {
+        setError('Erro ao carregar funcionários');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar funcionários:', error);
+      setError('Erro ao conectar ao servidor');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Seleção individual
+  const handleSelectFuncionario = (matricula: string) => {
+    const newSelected = new Set(selectedFuncionarios);
+    if (newSelected.has(matricula)) {
+      newSelected.delete(matricula);
+    } else {
+      newSelected.add(matricula);
+    }
+    setSelectedFuncionarios(newSelected);
+    setSelectAll(newSelected.size === funcionarios.length);
+  };
+
+  // Selecionar todos
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedFuncionarios(new Set());
+      setSelectAll(false);
+    } else {
+      const allMatriculas = new Set(funcionarios.map(f => f.matricula));
+      setSelectedFuncionarios(allMatriculas);
+      setSelectAll(true);
+    }
+  };
+
+  // Excluir funcionários selecionados
+  const handleDeleteSelected = async () => {
+    if (selectedFuncionarios.size === 0) {
+      alert('Selecione pelo menos um funcionário para excluir');
+      return;
+    }
+
+    const ok = window.confirm(`Tem certeza que deseja excluir ${selectedFuncionarios.size} funcionário(s)?`);
+    if (!ok) return;
+    if (isDeleting) return;
+    setIsDeleting(true);
+
+    try {
+      const response = await fetch('/api/funcionariobd', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          matriculas: Array.from(selectedFuncionarios)
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+        // Recarregar lista
+        fetchFuncionarios();
+        // Limpar seleção
+        setSelectedFuncionarios(new Set());
+        setSelectAll(false);
+      } else {
+        const error = await response.json();
+        alert('Erro ao excluir: ' + (error.error || 'Erro desconhecido'));
+      }
+    } catch (error) {
+      console.error('Erro ao excluir funcionários:', error);
+      alert('Erro ao conectar ao servidor');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  // Excluir funcionário individual
+  const handleDeleteFuncionario = async (matricula: string) => {
+    const ok = window.confirm('Tem certeza que deseja excluir este funcionário?');
+    if (!ok) return;
+    if (isDeleting) return;
+    setIsDeleting(true);
+
+    try {
+      const response = await fetch('/api/funcionariobd', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ matricula }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+        fetchFuncionarios();
+      } else {
+        const error = await response.json();
+        alert('Erro ao excluir: ' + (error.message || 'Erro desconhecido'));
+      }
+    } catch (error) {
+      console.error('Erro ao excluir funcionário:', error);
+      alert('Erro ao conectar ao servidor');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-lg">Carregando...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen">
       <aside className="flex w-64 flex-col border-r border-gray-200 bg-white shadow-lg">
@@ -52,13 +204,14 @@ export default function AdminHomePage() {
               Bem-vindo de volta, aqui está um resumo da sua operação.
             </p>
           </div>
-          <button 
+          <Link 
+            href="/admin/Cadastro-Funcionario"
             className="flex items-center gap-2 rounded-md bg-johndeere-green px-4 py-2 text-sm font-bold text-white hover:bg-johndeere-green/90 transition-colors"
             style={{ backgroundColor: '#367C2B' }}
           >
             <span className="material-symbols-outlined">add</span>
             Adicionar Usuário
-          </button>
+          </Link>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -71,7 +224,7 @@ export default function AdminHomePage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total de Usuários</p>
-                <p className="text-xl font-bold text-gray-800">10</p>
+                <p className="text-xl font-bold text-gray-800">{funcionarios.length}</p>
               </div>
             </div>
           </div>
@@ -85,7 +238,7 @@ export default function AdminHomePage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Usuários Ativos</p>
-                <p className="text-xl font-bold text-gray-800">8</p>
+                <p className="text-xl font-bold text-gray-800">{funcionarios.filter(f => f.status === 'Ativo').length}</p>
               </div>
             </div>
           </div>
@@ -99,11 +252,40 @@ export default function AdminHomePage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Usuários Inativos</p>
-                <p className="text-xl font-bold text-gray-800">2</p>
+                <p className="text-xl font-bold text-gray-800">{funcionarios.filter(f => f.status === 'Inativo').length}</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Barra de ações em massa */}
+        {selectedFuncionarios.size > 0 && (
+          <div className="mb-6 bg-white rounded-lg shadow p-4 border border-gray-200">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">
+                {selectedFuncionarios.size} funcionário(s) selecionado(s)
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleDeleteSelected}
+                  className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-sm">delete</span>
+                  Excluir Selecionados
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedFuncionarios(new Set());
+                    setSelectAll(false);
+                  }}
+                  className="px-3 py-2 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-colors"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="relative">
@@ -129,10 +311,25 @@ export default function AdminHomePage() {
             </select>
           </div>
         </div>
+
+        {error && (
+          <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            {error}
+          </div>
+        )}
+        
         <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-gray-200 bg-gray-50">
               <tr>
+                <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">
+                  <input
+                    type="checkbox"
+                    checked={selectAll}
+                    onChange={handleSelectAll}
+                    className="w-4 h-4 text-johndeere-green border-gray-300 rounded focus:ring-johndeere-green"
+                  />
+                </th>
                 <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
                 <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Email</th>
                 <th className="px-6 py-3 font-medium text-gray-600 uppercase tracking-wider">Grupo</th>
@@ -141,156 +338,60 @@ export default function AdminHomePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Carlos Silva</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">carlos.silva@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Administradores</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Ana Souza</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">ana.souza@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Pedro Almeida</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">pedro.almeida@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Inativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Maria Santos</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">maria.santos@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Operações</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">João Oliveira</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">joao.oliveira@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">Manutenção</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Fernanda Costa</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">fernanda.costa@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Qualidade</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Roberto Lima</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">roberto.lima@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-800">Logística</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Juliana Martins</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">juliana.martins@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-800">TI</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Ricardo Pereira</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">ricardo.pereira@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Administradores</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Ativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Camila Rodrigues</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">camila.rodrigues@johndeere.com</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800">Usuários</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-800">Inativo</span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <a className="font-medium text-johndeere-green hover:underline" href="#">Editar</a>
-                  <span className="mx-2 text-gray-300">|</span>
-                  <a className="font-medium text-red-600 hover:underline" href="#">Excluir</a>
-                </td>
-              </tr>
+              {funcionarios.map((funcionario) => (
+                <tr key={funcionario.matricula} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <input
+                      type="checkbox"
+                      checked={selectedFuncionarios.has(funcionario.matricula)}
+                      onChange={() => handleSelectFuncionario(funcionario.matricula)}
+                      className="w-4 h-4 text-johndeere-green border-gray-300 rounded focus:ring-johndeere-green"
+                    />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{funcionario.nome}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">{funcionario.email || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                      funcionario.grupo === 'Administradores' 
+                        ? 'bg-blue-100 text-blue-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {funcionario.grupo}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                      funcionario.status === 'Ativo' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {funcionario.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <button 
+                      className="font-medium text-johndeere-green hover:underline mr-3"
+                      onClick={() => alert('Funcionalidade de edição em desenvolvimento')}
+                    >
+                      Editar
+                    </button>
+                    <button 
+                      className="font-medium text-red-600 hover:underline"
+                      onClick={() => handleDeleteFuncionario(funcionario.matricula)}
+                      disabled={funcionario.matricula === 'ADMIN001'}
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              {funcionarios.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                    Nenhum funcionário encontrado
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

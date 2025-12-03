@@ -7,27 +7,44 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     
-    // Simulação de autenticação - em produção seria uma chamada à API
-    if (email && password) {
-      // Simulação de roles baseado no email
-      const isAdmin = email.includes('admin') || email.includes('gerente');
-      
-      setTimeout(() => {
-        if (isAdmin) {
+    if (!email || !password) {
+      setError('Por favor, preencha todos os campos');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok && data.ok) {
+        if (data.isAdmin) {
           router.push('/admin/home');
         } else {
           router.push('/funcionarios');
         }
-        setLoading(false);
-      }, 1000);
-    } else {
+      } else {
+        setError(data.error || 'Credenciais inválidas');
+      }
+    } catch (err) {
+      setError('Erro ao conectar ao servidor. Tente novamente.');
+      console.error('Erro no login:', err);
+    } finally {
       setLoading(false);
-      alert('Por favor, preencha todos os campos');
     }
   };
 
@@ -58,6 +75,11 @@ export default function Home() {
               </p>
             </div>
             <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                  {error}
+                </div>
+              )}
               <div>
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -77,6 +99,7 @@ export default function Home() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
               </div>
@@ -96,10 +119,18 @@ export default function Home() {
                     id="password"
                     name="password"
                     placeholder="Digite sua senha"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={loading}
                   />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm"
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? 'Ocultar' : 'Mostrar'}
+                  </button>
                 </div>
               </div>
               <div className="flex items-center justify-between text-sm">

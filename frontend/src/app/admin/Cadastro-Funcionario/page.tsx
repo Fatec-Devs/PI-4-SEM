@@ -5,6 +5,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 
 type FormDataState = {
+  matricula: string;
   fullName: string;
   email: string;
   phone: string;
@@ -16,6 +17,7 @@ type FormDataState = {
 
 export default function CadastroFuncionario() {
   const [formData, setFormData] = useState<FormDataState>({
+    matricula: '',
     fullName: '',
     email: '',
     phone: '',
@@ -33,11 +35,38 @@ export default function CadastroFuncionario() {
     });
   };
 
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Simulação de envio para API
-    console.log("Dados do formulário:", formData);
-    alert("Funcionário cadastrado com sucesso!");
+    setError('');
+    setSubmitting(true);
+    try {
+      const payload = {
+        matricula: formData.matricula || `USR${Date.now()}`,
+        nome: formData.fullName,
+        email: formData.email,
+        username: formData.username,
+        senha: formData.password,
+      }
+      const res = await fetch('/api/funcionariobd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data?.error || 'Erro ao cadastrar funcionário')
+        return
+      }
+      alert('Funcionário cadastrado com sucesso!')
+      setFormData({ matricula: '', fullName: '', email: '', phone: '', department: '', role: '', username: '', password: '' })
+    } catch (err) {
+      setError('Erro de rede ao cadastrar')
+    } finally {
+      setSubmitting(false)
+    }
   };
 
   return (
@@ -91,9 +120,26 @@ export default function CadastroFuncionario() {
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
+            )}
             <fieldset className="space-y-6 border-b border-border-light dark:border-border-dark pb-8">
               <legend className="text-lg font-semibold text-johndeere-green">Informações Pessoais</legend>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2">
+                    Matrícula
+                  </label>
+                  <input
+                    type="text"
+                    id="matricula"
+                    name="matricula"
+                    value={formData.matricula}
+                    onChange={handleChange}
+                    placeholder="Ex: EMP000123"
+                    className="w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-johndeere-yellow focus:border-johndeere-green border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 after:content-['*'] after:text-red-500 after:ml-1">
                     Nome Completo
@@ -209,10 +255,10 @@ export default function CadastroFuncionario() {
                 </div>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Será usado para login no sistema.</p>
               </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 after:content-['*'] after:text-red-500 after:ml-1">
-                  Senha
-                </label>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 pb-2 after:content-['*'] after:text-red-500 after:ml-1">
+                    Senha
+                  </label>
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <span className="material-symbols-outlined text-gray-400">lock</span>
@@ -227,6 +273,10 @@ export default function CadastroFuncionario() {
                     required
                     className="w-full rounded-md pl-10 focus:ring focus:ring-opacity-50 focus:ring-johndeere-yellow focus:border-johndeere-green border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
+                  <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm" onClick={() => {
+                    const el = document.getElementById('password') as HTMLInputElement
+                    if (el) el.type = el.type === 'password' ? 'text' : 'password'
+                  }}>Mostrar</button>
                 </div>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Mínimo de 8 caracteres, com letras, números e símbolos.</p>
               </div>
@@ -241,10 +291,11 @@ export default function CadastroFuncionario() {
               </button>
               <button 
                 type="submit" 
-                className="w-full sm:w-auto flex items-center justify-center py-2 px-6 rounded-md bg-johndeere-green text-white font-bold text-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-yellow transition-all shadow-sm"
+                disabled={submitting}
+                className="w-full sm:w-auto flex items-center justify-center py-2 px-6 rounded-md bg-johndeere-green text-white font-bold text-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-johndeere-yellow transition-all shadow-sm disabled:opacity-50"
               >
                 <span className="material-symbols-outlined mr-2">person_add</span>
-                Cadastrar Funcionário
+                {submitting ? 'Cadastrando...' : 'Cadastrar Funcionário'}
               </button>
             </div>
           </form>
