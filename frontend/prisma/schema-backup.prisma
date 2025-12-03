@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model aplicacao {
+  id_app             Int                  @id @default(autoincrement())
+  component_tag      String               @unique
+  nome               String
+  id_time            Int?
+  time               time?                @relation(fields: [id_time], references: [id_time])
+  aplicacao_user_app aplicacao_user_app[]
+}
+
+model aplicacao_user_app {
+  id_app      Int
+  id_user_app Int
+  aplicacao   aplicacao @relation(fields: [id_app], references: [id_app], onDelete: Cascade)
+  user_app    user_app  @relation(fields: [id_user_app], references: [id_user_app], onDelete: Cascade)
+
+  @@id([id_app, id_user_app])
+}
+
+model funcionario {
+  matricula         String              @id
+  nome              String
+  username          String              @unique
+  senha             String
+  email             String?
+  funcionario_grupo funcionario_grupo[]
+  user_app          user_app[]
+}
+
+model funcionario_grupo {
+  matricula_funcionario String
+  id_grupo              Int
+  grupo                 grupo       @relation(fields: [id_grupo], references: [id_grupo])
+  funcionario           funcionario @relation(fields: [matricula_funcionario], references: [matricula])
+
+  @@id([matricula_funcionario, id_grupo])
+}
+
+model grupo {
+  id_grupo          Int                 @id @default(autoincrement())
+  nome              String
+  funcionario_grupo funcionario_grupo[]
+  time              time[]
+}
+
+model time {
+  id_time   Int         @id @default(autoincrement())
+  nome      String
+  id_grupo  Int?
+  pdl       String?
+  aplicacao aplicacao[]
+  grupo     grupo?      @relation(fields: [id_grupo], references: [id_grupo])
+}
+
+model user_app {
+  id_user_app           Int                  @id @default(autoincrement())
+  username              String
+  senha                 String
+  matricula_funcionario String?
+  aplicacao_user_app    aplicacao_user_app[]
+  funcionario           funcionario?         @relation(fields: [matricula_funcionario], references: [matricula])
+}

@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model access_logs {
@@ -88,18 +89,18 @@ model user_teams {
   @@index([team_id])
 }
 
-/// Estrutura real da tabela users no schema john_deere
 model users {
-  id                   String    @id @default(uuid()) @db.Uuid
-  email                String    @unique @db.Text
-  name                 String    @db.Text
-  matricula            String    @unique @db.Text
-  password_hash        String    @db.Text
-  role                 String    @db.Text
-  is_active            Boolean?  @default(true)
-  password_expires_at  DateTime? @db.Timestamp(6)
-  created_at           DateTime? @default(now()) @db.Timestamp(6)
-  updated_at           DateTime? @default(now()) @db.Timestamp(6)
-  last_login_at        DateTime? @db.Timestamp(6)
-  created_by             String?   @db.Uuid
+  id                String    @id @default(uuid()) @db.Uuid
+  username          String    @db.Text
+  email             String?   @db.Text
+  password_hash     String    @db.Text
+  full_name         String?   @db.Text
+  matricula         String?   @db.Text
+  is_active         Boolean?  @default(true)
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  updated_at        DateTime? @default(now()) @db.Timestamp(6)
+  last_login_at     DateTime? @db.Timestamp(6)
+  password_expires_at DateTime? @db.Timestamp(6)
+
+  @@unique([username])
 }
