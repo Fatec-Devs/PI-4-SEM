@@ -66,6 +66,10 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # ======================
 # Temporary / runtime files
@@ -93,3 +97,31 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 terraform.tfvars
 
 /generated/prisma
+
+# ======================
+# AWS / Deployment
+# ======================
+*.zip
+function.zip
+/lambda/dist
+/lambda/node_modules
+
+# ======================
+# Database
+# ======================
+*.sql.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# ======================
+# Documentation (temp files)
+# ======================
+*.md.backup
+*.md~
+
+# ======================
+# Prisma
+# ======================
+/frontend/prisma/migrations/*_backup
+/frontend/node_modules/.prisma

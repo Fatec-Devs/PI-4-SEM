@@ -36,7 +36,7 @@ export function decryptSession(encryptedData: string): SessionData | null {
     
     return JSON.parse(decrypted);
   } catch (error) {
-    console.error('Error decrypting session:', error);
+    console.error('Erro ao descriptografar sessão:', error);
     return null;
   }
 }

@@ -12,7 +12,7 @@ export async function PUT(
     const session = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
-    const { username, description, status, role } = body;
+    const { username, description, status, role, passwordExpiresAt } = body;
 
     const user = await prisma.applicationUser.findUnique({
       where: { id },
@@ -39,6 +39,18 @@ export async function PUT(
       }
     }
 
+    // Validate passwordExpiresAt if provided
+    if (passwordExpiresAt) {
+      const expirationDate = new Date(passwordExpiresAt);
+
+      if (isNaN(expirationDate.getTime())) {
+        return NextResponse.json(
+          { error: 'Invalid expiration date format' },
+          { status: 400 }
+        );
+      }
+    }
+
     const updated = await prisma.applicationUser.update({
       where: { id },
       data: {
@@ -46,6 +58,7 @@ export async function PUT(
         ...(description !== undefined && { description }),
         ...(status && { status }),
         ...(role && { role }),
+        ...(passwordExpiresAt && { passwordExpiresAt: new Date(passwordExpiresAt) }),
       },
     });
 
@@ -55,7 +68,7 @@ export async function PUT(
         entity: 'APP_USER',
         entityId: id,
         performedBy: session.username,
-        details: { username, description, status, role },
+        details: { username, description, status, role, passwordExpiresAt },
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
         userAgent: request.headers.get('user-agent') || 'unknown',
       },
@@ -63,7 +76,7 @@ export async function PUT(
 
     return NextResponse.json({ success: true, user: updated });
   } catch (error: any) {
-    console.error('Error updating user:', error);
+    console.error('Erro ao atualizar usuário:', error);
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }
@@ -97,7 +110,7 @@ export async function DELETE(
       const { deleteSecret } = await import('@/lib/aws-secrets');
       await deleteSecret(secretName);
     } catch (awsError) {
-      console.error('Error deleting AWS secret:', awsError);
+      console.error('Erro ao deletar AWS secret:', awsError);
       // Continue with user deletion even if AWS deletion fails
     }
 
@@ -120,7 +133,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error('Error deleting user:', error);
+    console.error('Erro ao deletar usuário:', error);
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }

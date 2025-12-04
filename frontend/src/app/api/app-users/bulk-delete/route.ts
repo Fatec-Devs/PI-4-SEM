@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
         try {
           await deleteSecret(secretName);
         } catch (awsError) {
-          console.error(`Error deleting AWS secret for ${user.id}:`, awsError);
+          console.error(`Erro ao deletar AWS secret para ${user.id}:`, awsError);
           // Continue with user deletion even if AWS deletion fails
         }
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
           },
         });
       } catch (error: any) {
-        console.error(`Error deleting user ${user.id}:`, error);
+        console.error(`Erro ao deletar usuário ${user.id}:`, error);
         results.failed.push({
           id: user.id,
           error: error.message || 'Unknown error',
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       results,
     });
   } catch (error: any) {
-    console.error('Error bulk deleting users:', error);
+    console.error('Erro ao deletar usuários em lote:', error);
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }

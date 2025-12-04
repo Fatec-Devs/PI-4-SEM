@@ -7,7 +7,7 @@ export async function POST() {
     
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Logout error:', error);
+    console.error('Erro ao fazer logout:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/auth';
-import { updateSecret, generateStrongPassword, getSecretName } from '@/lib/aws-secrets';
+import { updateSecret, generateStrongPassword, getSecretName, isAwsEnabled } from '@/lib/aws-secrets';
+import { notifyPasswordRotated } from '@/lib/aws-ses';
 import bcrypt from 'bcrypt';
 
 export async function POST(request: NextRequest) {
@@ -19,6 +20,11 @@ export async function POST(request: NextRequest) {
 
     const users = await prisma.applicationUser.findMany({
       where: { id: { in: userIds } },
+      select: {
+        id: true,
+        username: true,
+        ownerEmail: true,
+      }
     });
 
     const results = {
@@ -30,26 +36,44 @@ export async function POST(request: NextRequest) {
       try {
         const newPassword = generateStrongPassword();
         const newPasswordHash = await bcrypt.hash(newPassword, 10);
-        const secretName = getSecretName(user.id);
 
-        // Update secret in AWS (skip if AWS not configured)
-        try {
-          await updateSecret(secretName, newPassword);
-        } catch (awsError) {
-          console.error(`Error updating AWS secret for ${user.id}:`, awsError);
-          // Continue with password rotation even if AWS fails
+        // Update secret in AWS if enabled
+        if (isAwsEnabled()) {
+          try {
+            const secretName = getSecretName(user.username);
+            await updateSecret(secretName, newPassword);
+            console.log(`✅ AWS Secret atualizado para o usuário ${user.username}`);
+          } catch (awsError) {
+            console.error(`⚠️ Falha ao atualizar AWS secret para ${user.username}:`, awsError);
+            // Continue with local password rotation even if AWS fails
+          }
         }
 
-        // Update user with new password hash and plain text
+        // Update user in database
+        const passwordExpiresAt = new Date(Date.now() + 50 * 24 * 60 * 60 * 1000);
         await prisma.applicationUser.update({
           where: { id: user.id },
           data: {
             passwordHash: newPasswordHash,
-            passwordPlainText: newPassword, // Save plain text for retrieval
+            passwordPlainText: isAwsEnabled() ? null : newPassword, // Only store locally if AWS disabled
             lastRotation: new Date(),
-            passwordExpiresAt: new Date(Date.now() + 50 * 24 * 60 * 60 * 1000),
+            passwordExpiresAt,
           },
         });
+
+        // Send rotation notification email
+        try {
+          await notifyPasswordRotated(
+            user.ownerEmail,
+            user.username,
+            passwordExpiresAt,
+            session.username
+          );
+          console.log(`✉️ Email de rotação enviado para ${user.ownerEmail}`);
+        } catch (emailError) {
+          console.error(`⚠️ Falha ao enviar email de rotação para ${user.ownerEmail}:`, emailError);
+          // Continue operation even if email fails
+        }
 
         results.rotated.push({
           id: user.id,
@@ -70,7 +94,7 @@ export async function POST(request: NextRequest) {
           },
         });
       } catch (error: any) {
-        console.error(`Error rotating password for user ${user.id}:`, error);
+        console.error(`Erro ao rotacionar senha para o usuário ${user.id}:`, error);
         results.failed.push({
           id: user.id,
           error: error.message || 'Unknown error',
@@ -83,7 +107,7 @@ export async function POST(request: NextRequest) {
       results,
     });
   } catch (error: any) {
-    console.error('Error bulk rotating passwords:', error);
+    console.error('Erro ao rotacionar senhas em lote:', error);
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }

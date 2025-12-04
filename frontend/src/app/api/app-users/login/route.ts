@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { createSession } from '@/lib/auth';
+import { notifyPasswordExpired } from '@/lib/aws-ses';
 import bcrypt from 'bcrypt';
 
 export async function POST(request: NextRequest) {
@@ -16,15 +17,17 @@ export async function POST(request: NextRequest) {
     }
 
     const appUser = await prisma.applicationUser.findUnique({
-      where: { username, status: 'ACTIVE' },
+      where: { username },
       select: {
         id: true,
         username: true,
         description: true,
         role: true,
+        status: true,
         passwordHash: true,
         passwordPlainText: true,
         passwordExpiresAt: true,
+        ownerEmail: true,
       }
     });
 
@@ -35,10 +38,48 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if password expired
-    if (appUser.passwordExpiresAt < new Date()) {
+    // Check if user is inactive
+    if (appUser.status === 'INACTIVE') {
       return NextResponse.json(
-        { error: 'Password expired. Please contact administrator.' },
+        { error: 'User account is inactive. Please contact administrator.' },
+        { status: 403 }
+      );
+    }
+
+    // Check if password expired and update status to INACTIVE
+    if (appUser.passwordExpiresAt < new Date()) {
+      await prisma.applicationUser.update({
+        where: { id: appUser.id },
+        data: { status: 'INACTIVE' },
+      });
+
+      await prisma.auditLog.create({
+        data: {
+          action: 'UPDATE',
+          entity: 'APP_USER',
+          entityId: appUser.id,
+          performedBy: 'SYSTEM',
+          details: { reason: 'Password expired - status changed to INACTIVE' },
+          ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+        },
+      });
+
+      // Send expiration notification email
+      try {
+        await notifyPasswordExpired(
+          appUser.ownerEmail,
+          appUser.username,
+          appUser.passwordExpiresAt
+        );
+        console.log(`✉️ Email de expiração enviado para ${appUser.ownerEmail}`);
+      } catch (emailError) {
+        console.error(`⚠️ Falha ao enviar email de expiração para ${appUser.ownerEmail}:`, emailError);
+        // Continue operation even if email fails
+      }
+
+      return NextResponse.json(
+        { error: 'Password expired. Your account has been deactivated. Please contact administrator.' },
         { status: 403 }
       );
     }
@@ -90,7 +131,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('App user login error:', error);
+    console.error('Erro de login do usuário de aplicação:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -11,6 +11,11 @@ const client = new SecretsManagerClient({
   region: process.env.AWS_REGION || 'us-east-1',
 });
 
+// Flag para controlar se usa AWS Secrets Manager ou armazenamento local
+export const isAwsEnabled = (): boolean => {
+  return process.env.USE_AWS_SECRETS === 'true';
+};
+
 export function generateStrongPassword(length: number = 24): string {
   const lowercase = 'abcdefghijklmnopqrstuvwxyz';
   const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -58,7 +63,7 @@ export async function getSecret(secretName: string): Promise<string | null> {
     }
     return null;
   } catch (error) {
-    console.error('Error getting secret:', error);
+    console.error('Erro ao obter secret:', error);
     return null;
   }
 }
@@ -81,6 +86,9 @@ export async function deleteSecret(secretName: string): Promise<void> {
   await client.send(command);
 }
 
-export function getSecretName(userId: string): string {
-  return `app-user-${userId}`;
+export function getSecretName(username: string): string {
+  // Sanitizar username: remover caracteres especiais e espaços
+  // AWS Secrets Manager aceita: a-z, A-Z, 0-9, /_+=.@-
+  const sanitized = username.toLowerCase().replace(/[^a-z0-9._-]/g, '-');
+  return `app-user-${sanitized}`;
 }

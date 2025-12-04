@@ -34,8 +34,10 @@ export default function EmployeeDashboard() {
   const [editingUser, setEditingUser] = useState<AppUser | null>(null);
   const [newUsername, setNewUsername] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newOwnerEmail, setNewOwnerEmail] = useState('');
   const [newRole, setNewRole] = useState('ROLE_1');
   const [newStatus, setNewStatus] = useState('ACTIVE');
+  const [newPasswordExpiresAt, setNewPasswordExpiresAt] = useState('');
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [passwordCache, setPasswordCache] = useState<PasswordCache>({});
   const [loadingPassword, setLoadingPassword] = useState<string | null>(null);
@@ -60,7 +62,7 @@ export default function EmployeeDashboard() {
         setIsAdmin(data.user.role === 'ADMIN');
       }
     } catch (err) {
-      console.error('Error fetching user info:', err);
+      console.error('Erro ao buscar informações do usuário:', err);
     }
   };
 
@@ -184,11 +186,21 @@ export default function EmployeeDashboard() {
       return;
     }
 
+    if (!newOwnerEmail || !newOwnerEmail.includes('@')) {
+      alert('Email do responsável é obrigatório e deve ser válido');
+      return;
+    }
+
     try {
       const response = await fetch('/api/app-users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: newUsername, description: newDescription, role: newRole }),
+        body: JSON.stringify({ 
+          username: newUsername, 
+          description: newDescription, 
+          ownerEmail: newOwnerEmail,
+          role: newRole 
+        }),
       });
 
       const data = await response.json();
@@ -197,6 +209,7 @@ export default function EmployeeDashboard() {
         setGeneratedPassword(data.user.password);
         setNewUsername('');
         setNewDescription('');
+        setNewOwnerEmail('');
         setNewRole('ROLE_1');
         fetchUsers();
       } else {
@@ -213,6 +226,9 @@ export default function EmployeeDashboard() {
     setNewDescription(user.description || '');
     setNewRole(user.role);
     setNewStatus(user.status);
+    // Converter data para formato yyyy-MM-dd para o input date
+    const expirationDate = new Date(user.passwordExpiresAt);
+    setNewPasswordExpiresAt(expirationDate.toISOString().split('T')[0]);
     setShowEditModal(true);
   };
 
@@ -231,6 +247,7 @@ export default function EmployeeDashboard() {
           description: newDescription,
           role: newRole,
           status: newStatus,
+          passwordExpiresAt: newPasswordExpiresAt,
         }),
       });
 
@@ -244,6 +261,7 @@ export default function EmployeeDashboard() {
         setNewDescription('');
         setNewRole('ROLE_1');
         setNewStatus('ACTIVE');
+        setNewPasswordExpiresAt('');
         fetchUsers();
       } else {
         alert(data.error || 'Erro ao atualizar usuário');
@@ -452,9 +470,9 @@ export default function EmployeeDashboard() {
                       {user.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2">{new Date(user.passwordExpiresAt).toLocaleDateString()}</td>
+                  <td className="px-4 py-2">{new Date(user.passwordExpiresAt).toLocaleDateString('pt-BR')}</td>
                   <td className="px-4 py-2">
-                    {user.lastRotation ? new Date(user.lastRotation).toLocaleDateString() : '-'}
+                    {user.lastRotation ? new Date(user.lastRotation).toLocaleDateString('pt-BR') : '-'}
                   </td>
                   <td className="px-4 py-2">
                     <div className="flex space-x-2">
@@ -585,6 +603,20 @@ export default function EmployeeDashboard() {
                 />
               </div>
               <div>
+                <label className="block text-sm font-medium mb-1">Email do Responsável *</label>
+                <input
+                  type="email"
+                  value={newOwnerEmail}
+                  onChange={(e) => setNewOwnerEmail(e.target.value)}
+                  className="w-full px-3 py-2 border rounded-lg"
+                  placeholder="responsavel@johndeere.com"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Este email receberá notificações sobre criação, rotação e expiração de senha
+                </p>
+              </div>
+              <div>
                 <label className="block text-sm font-medium mb-1">Role *</label>
                 <select
                   value={newRole}
@@ -673,10 +705,22 @@ export default function EmployeeDashboard() {
                   <option value="SUSPENDED">SUSPENDED - Suspenso</option>
                 </select>
               </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Data de Expiração da Senha *</label>
+                <input
+                  type="date"
+                  value={newPasswordExpiresAt}
+                  onChange={(e) => setNewPasswordExpiresAt(e.target.value)}
+                  className="w-full px-3 py-2 border rounded-lg"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Senha expira em: {newPasswordExpiresAt ? new Date(newPasswordExpiresAt).toLocaleDateString('pt-BR') : '-'}
+                </p>
+              </div>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 p-3 rounded mt-4 text-sm text-blue-800">
-              💡 A senha não será alterada. Use "Rotacionar Senhas" para gerar nova senha.
+            <div className="bg-yellow-50 border border-yellow-200 p-3 rounded mt-4 text-sm text-yellow-800">
+              ⚠️ A senha não será alterada. Use "Rotacionar Senhas" para gerar nova senha.
             </div>
 
             <div className="flex space-x-2 mt-6">

@@ -103,6 +103,7 @@ model ApplicationUser {
   id                String              @id @default(uuid())
   username          String              @unique
   description       String?             // Descrição do usuário de aplicação
+  ownerEmail        String              @map("owner_email") // Email do responsável pelo usuário
   role              AppUserRole         @default(ROLE_1) // Role do usuário de aplicação
   passwordHash      String?             @map("password_hash")  // Senha criptografada (bcrypt) - usado quando AWS não está disponível
   passwordPlainText String?             @map("password_plain_text") // Senha em texto - salva temporariamente após criação/rotação

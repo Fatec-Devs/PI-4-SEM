@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     if (!employee) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { error: 'Credenciais inválidas' },
         { status: 401 }
       );
     }
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     if (!isValidPassword) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { error: 'Credenciais inválidas' },
         { status: 401 }
       );
     }
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     // Check if password expired
     if (employee.passwordExpiresAt < new Date()) {
       return NextResponse.json(
-        { error: 'Password expired. Please contact administrator.' },
+        { error: 'Senha expirada. Por favor, contate o administrador.' },
         { status: 403 }
       );
     }
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('Erro de login:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
